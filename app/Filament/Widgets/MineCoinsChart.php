@@ -13,9 +13,8 @@ class MineCoinsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Coins Mined In Days',
-                    'data' => [1, 10, 5, 2, 21, 32, 45],
-                   
+                    'label' => 'Total Coins Mined',
+                    'data' => [1, 10, 5, 2, 21, 32, 45],    
                 ],
             ],
             'labels' => ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],

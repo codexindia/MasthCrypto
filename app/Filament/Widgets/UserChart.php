@@ -15,7 +15,7 @@ class UserChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Monthly Days User joining',
+                    'label' => 'Monthly User joining',
                     'data' => $data['UserPerMonth']
                 ]
             ],
