@@ -1,26 +1,23 @@
 <?php
-
 namespace App\Filament\Pages;
-
-use Filament\Actions\Action;
 use Filament\Forms\Components\{Group, Section};
-use Filament\Forms\Components\{Select,Radio,TextInput};
+use Filament\Forms\Components\{Select, Radio, TextInput};
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Illuminate\Contracts\View\View;
-
 
 use Filament\Pages\Page;
+use App\Settings\GeneralSettings;
+use Filament\Pages\SettingsPage;
 
-class Settings extends Page
+
+class Settings extends SettingsPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog';
-public $json;
-    protected static string $view = 'filament.pages.settings';
-    public function mount(): void
-    {
-        $this->form->fill();
-    }
+    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static ?int $navigationSort = 3;
+
+    protected static string $settings = GeneralSettings::class;
+   
+    
     public function form(Form $form): Form
     {
         return $form
@@ -31,60 +28,52 @@ public $json;
                             ->required()->options([
                                 '1' => 'Enable',
                                 '0' => 'Disable'
-                            ]),
+                            ])->prefixIcon('heroicon-o-power'),
+                            
                         Select::make('force_update')
                             ->required()->options([
                                 '1' => 'Enable',
                                 '0' => 'Disable'
-                            ]),
-                            Select::make('ad_network')
-                            ->required()->options([
-                                'admob' => 'Admob',
-                               
-                            ]),
-                            Radio::make('mining_function')
+                            ])->prefixIcon('heroicon-o-device-phone-mobile'),
+                        Select::make('ad_network')->options([
+                            'admob' => 'Admob',
+                        ])->default('admob')->prefixIcon('heroicon-s-signal'),
+                        Radio::make('mining_function')
                             ->label('Mining Function')
                             ->boolean()
                             ->inline()
                             ->default(1)
                             ->inlineLabel(false),
-                        
+
                     ])->columns(2)
 
                 ]),
                 Group::make()->schema([
                     Section::make('Important Settings')->schema([
-                       
-                        TextInput::make('referral_coin')
+
+                        TextInput::make('referral_coin')->prefixIcon('heroicon-s-gift')
                             ->required()->integer(),
-                        TextInput::make('joining_coin')
+                        TextInput::make('joining_coin')->prefixIcon('heroicon-s-gift')
                             ->required()->integer(),
                         TextInput::make('sm_country_t_charge')
-                            ->required()->label('Same Country Transfer Charges')->integer(),
+                            ->required()->label('Same Country Transfer Charges')->prefixIcon('heroicon-o-currency-dollar')
+                            ->integer(),
                         TextInput::make('diff_country_t_charge')
-                            ->required()->label('Other Country Transfer Charges')->integer(),
+                            ->required()->label('Other Country Transfer Charges')->prefixIcon('heroicon-o-currency-dollar')
+                            ->integer(),
                     ])->columns(2)
 
                 ])
 
             ])->columns(2);
-           
     }
-    protected function getFormActions(): array
-    {
-        return [
-            Action::make('save')
-                ->label(__('filament-panels::resources/pages/edit-record.form.actions.save.label'))
-                ->submit('save'),
-        ];
-    }
-    public function save()
-    {
-        
-     
-        Notification::make()
-            ->success()
-            ->title("Changes Saved SuccessFully")
-            ->send();
-    }
+   
+    // public function save()
+    // {
+
+    //     Notification::make()
+    //         ->success()
+    //         ->title("Changes Saved SuccessFully")
+    //         ->send();
+    // }
 }
