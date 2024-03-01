@@ -16,7 +16,7 @@ class AuthManagement extends Controller
     {
         $request->validate([
             'country_code' => 'required|numeric',
-            'phone' => 'required|numeric|exists:users,phone|digits:10',
+            'phone' => 'required|numeric|exists:users,phone_number|digits:10',
         ], [
             'phone.exists' => 'Phone Number Has Not Registered',
         ]);
@@ -62,7 +62,7 @@ class AuthManagement extends Controller
         $request->validate([
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
-            'phone' => 'required|numeric|exists:users,phone|digits:10',
+            'phone' => 'required|numeric|exists:users,phone_number|digits:10',
         ]);
         //  return  $this->VerifyOTP($request->phone, $request->otp);
         if ($this->VerifyOTP($request->phone, $request->otp)) {
@@ -95,7 +95,7 @@ class AuthManagement extends Controller
 
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
-            'phone' => 'required|numeric|unique:users,phone'
+            'phone' => 'required|numeric|unique:users,phone_number'
         ]);
         $data = $this->VerifyOTP($request->phone, $request->otp);
         if ($data) {
@@ -130,7 +130,7 @@ class AuthManagement extends Controller
             'dob' => 'required|max:100',
             'lang' => 'required|max:100',
             'name' => 'required',
-            'phone' => 'required|numeric|unique:users,phone',
+            'phone' => 'required|numeric|unique:users,phone_number',
             'country_code' => 'required|numeric'
         ]);
         $temp = [
