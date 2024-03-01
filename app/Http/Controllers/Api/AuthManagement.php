@@ -66,7 +66,7 @@ class AuthManagement extends Controller
         ]);
         //  return  $this->VerifyOTP($request->phone, $request->otp);
         if ($this->VerifyOTP($request->phone, $request->otp)) {
-            $checkphone = User::where('phone', $request->phone)->first();
+            $checkphone = User::where('phone_number', $request->phone)->first();
             if ($checkphone) {
                 $checkphone->tokens()->delete();
                 $token = $checkphone->createToken('auth_token')->plainTextToken;
