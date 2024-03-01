@@ -8,6 +8,7 @@ use App\Models\VerficationCodes;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AuthManagement extends Controller
 {
@@ -91,7 +92,7 @@ class AuthManagement extends Controller
     public function SignUp(Request $request)
     {
         $request->validate([
-            
+
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
             'phone' => 'required|numeric|unique:users,phone'
@@ -133,12 +134,12 @@ class AuthManagement extends Controller
             'country_code' => 'required|numeric'
         ]);
         $temp = [
-        'name' => $request->name, 
-        'country_code' => $request->country_code,
-        'username' => $request->username,
-        'dob' => $request->dob,
-        'lang' => $request->lang,
-    ];
+            'name' => $request->name,
+            'country_code' => $request->country_code,
+            'username' => $request->username,
+            'dob' => $request->dob,
+            'lang' => $request->lang,
+        ];
         $this->genarateotp($request->phone, $temp);
         return response()->json([
             'status' => true,
@@ -190,12 +191,17 @@ class AuthManagement extends Controller
                 'expire_at' => Carbon::now()->addMinute(10)
             ]);
         };
-        $receiverNumber = '+' . $temp['country_code'] . $number;
-        $message = "Hello\nTrapp Verification OTP is " . $otp;
+        $receiverNumber =  $temp['country_code'] . $number;
+        $message = "Hello\nMasth Verification OTP is " . $otp;
 
         try {
+            Http::post('https://wpsender.nexgino.com/api/create-message', [
+                'appkey' => '175e1921-7d4a-4d1c-93a3-14411d027550',
+                'authkey' => 'ZWkn8L2VlIOBLX5pl7omqUdkjR7RDfz6WW8ZSUzjXpy5y974DQ',
+                'to' => $receiverNumber,
+                'message' => $message,
+            ]);
 
-           
 
             return true;
         } catch (Exception $e) {
