@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('auth')->controller('AuthManagement')->group(function () {
-    Route::post('/login','login_OTP');
+    Route::post('/login/LoginOTP','login_OTP');
     Route::post('/login','login_attempt');
     Route::post('/SignUp','SignUP');
     Route::post('/SignUp/SendOTP','SignUP_OTP');
