@@ -106,7 +106,7 @@ class AuthManagement extends Controller
                 'username' => $temp->username,
                 'date_of_birth' => $temp->dob,
                 'language' => $temp->lang,
-                'phone' => $request->phone,
+                'phone_number' => $request->phone,
                 'country_code' => $request->country_code,
             ]);
 
