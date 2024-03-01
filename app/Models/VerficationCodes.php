@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class VerficationCodes extends Model
 {
     use HasFactory;
-    
+    protected $guarded = ['id'];
 }

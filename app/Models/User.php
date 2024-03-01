@@ -27,7 +27,8 @@ class User extends Authenticatable
         'date_of_birth',
         'phone_number',
         'country_code',
-        'profile_pic'
+        'profile_pic',
+        'language'
     ];
     function toCamelCaseMethod1($inputString)
     {
