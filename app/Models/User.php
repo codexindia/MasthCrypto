@@ -61,8 +61,9 @@ class User extends Authenticatable
     }
     protected function email(): Attribute
     {
+       
         return Attribute::make(
-            get: fn (string $value) => strtolower($value),
+            get: fn ($value) => strtolower($value),
         );
     }
 }
