@@ -35,7 +35,9 @@ class ProfileManager extends Controller
             $update['profile_pic'] = Storage::put('public/users/profile', $request->file('profile_pic'));
         }
        $user = User::find($request->user()->id);
-        OneSignal::sendNotificationToExternalUser(
+       $params = [];
+       $params['android_channel_id'] = '7fbda4a1-81c5-4eb6-9936-a80543c5c06f';
+        OneSignal::addParams($params)->sendNotificationToExternalUser(
             "Your Profile Has Been Updated",
             $user->country_code.$user->phone_number,
             $url = null,
