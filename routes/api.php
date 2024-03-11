@@ -23,5 +23,6 @@ Route::prefix('auth')->controller('AuthManagement')->group(function () {
 Route::middleware(['check_sc','auth:sanctum'])->group(function () {
     Route::prefix('profile')->controller('ProfileManager')->group(function(){
         Route::post('/GetUser','GetUser');
+        Route::post('/UpdateUser','UpdateUser');
     });
 });

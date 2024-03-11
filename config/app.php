@@ -163,6 +163,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Berkayk\OneSignal\OneSignalServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -183,6 +184,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

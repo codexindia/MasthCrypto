@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   return  OneSignal::sendNotificationToExternalUser(
+    "Some Message",
+    '919547400680',
+    $url = null,
+    $data = null,
+    $buttons = null,
+    $schedule = null
+);
+
+
 });
