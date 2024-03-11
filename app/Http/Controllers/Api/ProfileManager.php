@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 class ProfileManager extends Controller
 {
     public function GetUser(Request $request)
@@ -34,7 +34,16 @@ class ProfileManager extends Controller
         if ($request->hasFile('profile_pic')) {
             $update['profile_pic'] = Storage::put('public/users/profile', $request->file('profile_pic'));
         }
-        User::find($request->user()->id)->update($update);
+       $user = User::find($request->user()->id);
+        OneSignal::sendNotificationToExternalUser(
+            "Your Profile Has Been Updated",
+            $user->country_code.$user->phone_number,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+        $user->update($update);
         return response()->json([
             'status' => true,
             'message' => 'Details Updated SuccessfUlly'
