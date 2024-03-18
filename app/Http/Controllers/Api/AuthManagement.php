@@ -95,12 +95,13 @@ class AuthManagement extends Controller
 
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
-            'phone' => 'required|numeric|unique:users,phone_number'
+            'phone' => 'required|numeric|unique:users,phone_number',
+           
         ]);
         $data = $this->VerifyOTP($request->phone, $request->otp);
         if ($data) {
             $temp = json_decode($data->temp);
-
+         
             $new_user = User::create([
                 'name' => $temp->name,
                 'username' => $temp->username,
@@ -108,6 +109,7 @@ class AuthManagement extends Controller
                 'language' => $temp->lang,
                 'phone_number' => $request->phone,
                 'country_code' => $request->country_code,
+                'refer_code' => 'MST'.time(),
             ]);
 
             $token = $new_user->createToken('auth_token')->plainTextToken;

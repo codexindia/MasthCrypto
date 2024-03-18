@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('country_code');
             $table->string('phone_number')->unique();
             $table->string('date_of_birth');
-            $table->string('language');
+            $table->string('language')->default('english');
             $table->string('profile_pic')->nullable();
+            $table->string('refer_code');
+            $table->string('referred_by')->default('skiped')->nullable();
             $table->timestamps();
         });
     }

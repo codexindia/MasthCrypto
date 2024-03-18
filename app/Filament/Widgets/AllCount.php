@@ -4,13 +4,14 @@ namespace App\Filament\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-
+use App\Models\User;
 class AllCount extends BaseWidget
 {
     protected function getStats(): array
     {
+        $user_count = User::count();
         return [
-            Stat::make('Total Users','10k')
+            Stat::make('Total Users',$user_count)
             ->description('increase in Users')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('success')

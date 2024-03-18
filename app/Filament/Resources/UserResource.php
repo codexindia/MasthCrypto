@@ -50,7 +50,9 @@ class UserResource extends Resource
                         FileUpload::make('profile_pic')->required()->image()->directory('users/profile')->imageEditor(),
                     ])->collapsible()
                 ])
+                
             ]);
+            
     }
 
     public static function table(Table $table): Table

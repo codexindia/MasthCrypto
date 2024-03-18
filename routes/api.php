@@ -25,4 +25,8 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
         Route::post('/GetUser','GetUser');
         Route::post('/UpdateUser','UpdateUser');
     });
+    Route::prefix('refer')->controller('ReferControll')->group(function(){
+        Route::post('/claim','claim');
+        Route::post('/skip','skip');
+    });
 });

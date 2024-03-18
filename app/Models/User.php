@@ -29,7 +29,9 @@ class User extends Authenticatable
         'phone_number',
         'country_code',
         'profile_pic',
-        'language'
+        'language',
+        'refer_code',
+        'referred_by'
     ];
     public function getProfilePicAttribute($value)
     {

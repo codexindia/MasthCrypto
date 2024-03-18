@@ -12,10 +12,13 @@ class ProfileManager extends Controller
     public function GetUser(Request $request)
     {
         $data = $request->user();
+        $refer_claimed = false;
+        if($data->referred_by != null || $data->referred_by == "skiped")
+        $refer_claimed = true;
         return response()->json([
             'status' => true,
             'data' => $data,
-            'refer_claimed' => false,
+            'refer_claimed' => $refer_claimed,
             'message' => 'done'
         ]);
     }
