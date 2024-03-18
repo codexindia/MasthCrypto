@@ -109,7 +109,7 @@ class AuthManagement extends Controller
                 'language' => $temp->lang,
                 'phone_number' => $request->phone,
                 'country_code' => $request->country_code,
-                'refer_code' => 'MST'.time(),
+                'refer_code' => 'MST'.rand('100000','999999'),
             ]);
 
             $token = $new_user->createToken('auth_token')->plainTextToken;
