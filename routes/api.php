@@ -28,5 +28,6 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
     Route::prefix('refer')->controller('ReferControll')->group(function(){
         Route::post('/claim','claim');
         Route::post('/skip','skip');
+        Route::post('/get_referred_members','get_referred_members');
     });
 });

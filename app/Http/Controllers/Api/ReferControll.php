@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\ReferData;
 
 class ReferControll extends Controller
 {
@@ -20,6 +21,12 @@ class ReferControll extends Controller
                 'message' => 'Referred Status Can not Update'
             ]);
         }
+        $sourceuser = User::where('refer_code', $request->refer_code)->first('id');
+        ReferData::create([
+            'user_id' => $sourceuser->id,
+            'referred_to' => $user->id,
+            'coins_earn' => get_setting('referral_coin'),
+        ]);
         $user->update([
             'referred_by' => $request->refer_code,
         ]);
@@ -37,6 +44,16 @@ class ReferControll extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Referred Status Updated'
+        ]);
+    }
+    public function get_referred_members(Request $request)
+    {
+        $user_id =  $request->user()->id;
+        $members = ReferData::where('user_id', $user_id)->select(['user_id','coins_earn'])->with('Profile:id,name,profile_pic,username')->orderBy('id', 'desc')->paginate(10);
+        return response()->json([
+            'status' => true,
+            'coins_earned' => $members->sum('coins_earn'),
+            'list' => $members
         ]);
     }
 }
