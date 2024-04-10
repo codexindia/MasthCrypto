@@ -30,4 +30,8 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
         Route::post('/skip','skip');
         Route::post('/get_referred_members','get_referred_members');
     });
+    Route::prefix('env')->controller('GeneralSettings')->group(function(){
+        Route::post('/check_version','check_version');
+       
+    });
 });

@@ -31,7 +31,8 @@ class User extends Authenticatable
         'profile_pic',
         'language',
         'refer_code',
-        'referred_by'
+        'referred_by',
+        'coin'
     ];
     public function getProfilePicAttribute($value)
     {

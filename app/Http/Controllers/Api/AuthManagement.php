@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AuthManagement extends Controller
 {
@@ -110,6 +111,7 @@ class AuthManagement extends Controller
                 'phone_number' => $request->phone,
                 'country_code' => $request->country_code,
                 'refer_code' => 'MST'.rand('100000','999999'),
+                'coin' => 0,
             ]);
 
             $token = $new_user->createToken('auth_token')->plainTextToken;
@@ -197,14 +199,14 @@ class AuthManagement extends Controller
         $message = "Hello\nMasth Verification OTP is " . $otp;
 
         try {
-            Http::post('https://wpsender.nexgino.com/api/create-message', [
+           $resp = Http::post('https://wpsender.nexgino.com/api/create-message', [
                 'appkey' => '175e1921-7d4a-4d1c-93a3-14411d027550',
                 'authkey' => 'ZWkn8L2VlIOBLX5pl7omqUdkjR7RDfz6WW8ZSUzjXpy5y974DQ',
                 'to' => $receiverNumber,
                 'message' => $message,
             ]);
 
-
+          Log::info($resp);
             return true;
         } catch (Exception $e) {
             dd("Error: " . $e->getMessage());
