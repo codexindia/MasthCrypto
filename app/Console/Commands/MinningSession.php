@@ -32,7 +32,7 @@ class MinningSession extends Command
         try {
 
             $now  = Carbon::now();
-            $pending = MiningSession::where('status', 'running')->whereDate('end_time', '<=', $now)->orderBy('end_time')->take(100)->get();
+            $pending = MiningSession::where('status', 'running')->where('end_time', '<=', $now)->orderBy('end_time')->take(100)->get();
           
             foreach ($pending as $item) {
                 DB::beginTransaction();
