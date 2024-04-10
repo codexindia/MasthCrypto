@@ -34,4 +34,8 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
         Route::post('/check_version','check_version');
        
     });
+    Route::prefix('mining')->controller('MiningModule')->group(function(){
+        Route::post('/checkMiningStatus','checkMiningStatus');
+        Route::post('/startMining','startMining');
+    });
 });
