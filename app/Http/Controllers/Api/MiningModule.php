@@ -20,6 +20,7 @@ class MiningModule extends Controller
         if ($mining->count() > 0) {
             return response()->json([
                 'status' => false,
+               
                 'minning_data' => $mining->first(),
                 'message' => 'An Active Minning Session is already Running'
             ]);
@@ -27,12 +28,14 @@ class MiningModule extends Controller
         if (!get_setting('mining_function')) {
             return response()->json([
                 'status' => false,
-                'mining_function' => false,
+               
+                'message' => "mining Currently Turned Off"
             ]);
         }
         return response()->json([
             'status' => true,
-            'message' => 'No minning Session is currently Running'
+
+            'message' => 'No mining Session is currently Running'
         ]);
     }
     public function startMining(Request $request)
