@@ -20,21 +20,21 @@ class MiningModule extends Controller
         if ($mining->count() > 0) {
             return response()->json([
                 'status' => false,
-               
-                'minning_data' => $mining->first(),
-                'message' => 'An Active Minning Session is already Running'
+                'mining_function' => false,
+                'mining_data' => $mining->first(),
+                'message' => 'An Active Mining Session is already Running'
             ]);
         }
         if (!get_setting('mining_function')) {
             return response()->json([
                 'status' => false,
-               
+                'mining_function' => false,
                 'message' => "mining Currently Turned Off"
             ]);
         }
         return response()->json([
             'status' => true,
-
+            'mining_function' => true,
             'message' => 'No mining Session is currently Running'
         ]);
     }
@@ -44,6 +44,7 @@ class MiningModule extends Controller
             return response()->json([
                 'status' => false,
                 'mining_function' => false,
+                'message' => "mining Currently Turned Off"
             ]);
         }
         $mining = MiningSession::where([
@@ -53,8 +54,8 @@ class MiningModule extends Controller
         if ($mining->count() > 0) {
             return response()->json([
                 'status' => false,
-                
-                'message' => 'An Active Minning Session is already Running'
+                'mining_function' => false,
+                'message' => 'An Active Mining Session is already Running'
             ]);
         }
         $new = new MiningSession;
