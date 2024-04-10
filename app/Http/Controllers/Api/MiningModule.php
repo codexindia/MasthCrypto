@@ -18,10 +18,12 @@ class MiningModule extends Controller
             'status' => 'running'
         ])->get();
         if ($mining->count() > 0) {
+            $data = $mining->first();
+            $data['current_time'] = Carbon::now();
             return response()->json([
                 'status' => false,
                 'mining_function' => false,
-                'mining_data' => $mining->first(),
+                'mining_data' => $data,
                 'message' => 'An Active Mining Session is already Running'
             ]);
         }
