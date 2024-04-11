@@ -36,6 +36,10 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
     });
     Route::prefix('mining')->controller('MiningModule')->group(function(){
         Route::post('/checkMiningStatus','checkMiningStatus');
-        Route::post('/startMining','startMining');
+        Route::post('/startMining','startMining');  
+    });
+    Route::prefix('home')->controller('HomeController')->group(function(){
+        Route::post('/Statics','Statics');
+      
     });
 });
