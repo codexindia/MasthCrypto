@@ -49,7 +49,7 @@ class ReferControll extends Controller
     public function get_referred_members(Request $request)
     {
         $user_id =  $request->user()->id;
-        $members = ReferData::where('user_id', $user_id)->select(['user_id','coins_earn'])->with('Profile:id,name,profile_pic,username')->orderBy('id', 'desc')->paginate(10);
+        $members = ReferData::where('user_id', $user_id)->select(['user_id','coins_earn','referred_to'])->with('Profile:id,name,profile_pic,username')->orderBy('id', 'desc')->paginate(10);
         return response()->json([
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
