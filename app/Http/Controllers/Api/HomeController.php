@@ -21,7 +21,7 @@ class HomeController extends Controller
             'total_miners' => $data['active_miners']->count(),
            
             'total_live_mining' => MiningSession::sum('coin'),
-            'total_remote_mining' => $data['active_miners']->first() == null ?0:$data['active_miners']->first()->GetMiningCoin,
+            'total_remote_mining' => $data['active_miners']->first() == null ?0:$data['active_miners']->GetMiningCoin,
         ]);
     }
 }
