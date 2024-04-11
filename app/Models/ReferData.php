@@ -12,6 +12,6 @@ class ReferData extends Model
     protected $guarded = ['id'];
     public function Profile(): HasMany
     {
-        return $this->HasMany(User::class, 'id', 'user_id');
+        return $this->HasMany(User::class, 'id', 'referred_to');
     }
 }
