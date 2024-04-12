@@ -29,7 +29,7 @@ class HomeController extends Controller
             'status' => true,
             'valuation' => array(
                 'currency' => 'USD',
-                'rate' => 1,
+                'rate' => 700,
             ),
             'active_miners' => $data['active_miners']->count(),
             'total_miners' => $data['active_miners']->count(),
