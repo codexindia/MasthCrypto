@@ -19,11 +19,10 @@ class HomeController extends Controller
 
 
         $total_remote_earning = 0;
-        $referaluser = User::where('referred_by', $request->user()->refer_code)->get();
-        foreach ($referaluser as $item) {
-           
-            $total_remote_earning += $item->GetMining->sum('coin');
-        }
+        $referaluser = User::where('referred_by', $request->user()->refer_code)->get(['id'])->toArray();
+        
+        $total_remote_earning = MiningSession::whereIn('user_id',$referaluser)->sum('coin');
+       
 
 
         return response()->json([
