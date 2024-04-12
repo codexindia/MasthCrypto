@@ -130,7 +130,7 @@ class AuthManagement extends Controller
     public function SignUP_OTP(Request $request)
     {
         $request->validate([
-            'username' => 'required|max:100',
+            'username' => 'required|max:100|unique:users,username',
             'dob' => 'required|max:100',
             'lang' => 'required|max:100',
             'name' => 'required',
