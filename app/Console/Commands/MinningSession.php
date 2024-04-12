@@ -39,7 +39,7 @@ class MinningSession extends Command
                 $update = MiningSession::findOrFail($item->id);
                 $update->status = 'closed';
                 $update->save();
-                sendpush($item->user->country_code.$item->user->phone_number,'Hey There ! Your Mining Session Has Ended 😨\nCome Back And Start Mining Again 💰💸');
+                sendpush($item->user->country_code.$item->user->phone_number,'Hey There ! Your Mining Session Has Ended 😨 Come Back And Start Mining Again 💰💸');
                 if (!coin_action($item->user_id, $item->coin,'credit', "Coins Added For Mining Session " . $item->session_id, ['session_id' => $item->session_id])) {
                     DB::rollBack();
                 } else {
