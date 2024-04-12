@@ -81,6 +81,6 @@ class User extends Authenticatable
    
     public function GetMining()
     {
-        $this->hasMany(MiningSession::class,'user_id','id');
+       return $this->hasMany(MiningSession::class,'user_id','id');
     }
 }

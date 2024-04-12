@@ -12,4 +12,5 @@ class MiningSession extends Model
     {
         return $this->belongsTo(User::class);
     }
+  
 }
