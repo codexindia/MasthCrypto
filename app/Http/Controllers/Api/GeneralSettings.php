@@ -11,7 +11,7 @@ class GeneralSettings extends Controller
     {
         return response()->json([
             'status' => true,
-            'version_code' => "3.1",
+            'version_code' => "3.0",
             'store_link' => "https://play.google.com/store/apps/details?id=com.crypto.miner.masth",
             'custom_link' => null
         ]);
