@@ -44,7 +44,7 @@ class MinningSession extends Command
                 sendpush($item->user->country_code . $item->user->phone_number, 'Hey There ! Your Mining Session Has Ended 😨 Come Back And Start Mining Again 💰💸');
                 //push refer bonus
                 $refer_coin = get_setting('referral_coin');
-                if ($item->user->referred_by != null || $item->user->referred_by != "skiped") {
+                if ($item->user->referred_by != null && $item->user->referred_by != "skiped") {
                     $ref_user = User::where('refer_code', $item->user->referred_by)->first();
                     coin_action($ref_user->id, $refer_coin, 'credit', "Commission Received From Your Referral User " . $item->user->name);
                     ReferData::where([
