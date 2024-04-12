@@ -21,7 +21,7 @@ class ReferControll extends Controller
                 'message' => 'Referred Status Can not Update'
             ]);
         }
-        $sourceuser = User::where('refer_code', $request->refer_code)->first('id');
+        $sourceuser = User::where('refer_code', $request->refer_code)->first(['id','country_code','phone_number']);
         ReferData::create([
             'user_id' => $sourceuser->id,
             'referred_to' => $user->id,
@@ -30,6 +30,7 @@ class ReferControll extends Controller
         $user->update([
             'referred_by' => $request->refer_code,
         ]);
+        sendpush($sourceuser->country_code.$sourceuser->phone_number,'@'.$user->username.' Just Joining Your Refer Code')
         return response()->json([
             'status' => true,
             'message' => 'Referred Status Updated'

@@ -42,7 +42,7 @@ class MinningSession extends Command
                 $update->status = 'closed';
                 $update->save();
                 sendpush($item->user->country_code . $item->user->phone_number, 'Hey There ! Your Mining Session Has Ended 😨 Come Back And Start Mining Again 💰💸');
-                //push refer bondus
+                //push refer bonus
                 $refer_coin = get_setting('referral_coin');
                 if ($item->user->referred_by != null || $item->user->referred_by != "skiped") {
                     $ref_user = User::where('refer_code', $item->user->referred_by)->first();
@@ -52,7 +52,7 @@ class MinningSession extends Command
                         'referred_to' => $item->user->id,
                     ])->increment('coins_earn', $refer_coin);
                 }
-                //end reffer
+                //end refer
                 if (!coin_action($item->user_id, $item->coin, 'credit', "Coins Added For Mining Session " . $item->session_id, ['session_id' => $item->session_id])) {
                     DB::rollBack();
                 } else {
