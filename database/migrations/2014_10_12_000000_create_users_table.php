@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('refer_code')->unique();
             $table->decimal('coin',10,4);
 
-            $table->string('referred_by')->default('skiped')->nullable();
+            $table->string('referred_by')->nullable();
             $table->timestamps();
         });
     }
