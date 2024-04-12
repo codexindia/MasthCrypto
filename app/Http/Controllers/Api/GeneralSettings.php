@@ -9,6 +9,7 @@ class GeneralSettings extends Controller
 {
     public function check_version(Request $request)
     {
+       // if(get_setting('force_update'));
         return response()->json([
             'status' => true,
             'version_code' => "3.0",
