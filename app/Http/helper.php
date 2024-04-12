@@ -3,6 +3,7 @@
 use App\Models\Settings;
 use App\Models\CoinsTransaction;
 use App\Models\User;
+use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 
 if (!function_exists('get_setting')) {
     function get_setting($key, $group = 'general')
@@ -38,5 +39,18 @@ if (!function_exists('coin_action')) {
             }
         }
         return false;
+    }
+    function sendpush($user_id,$text)
+    {
+        $params = [];
+        $params['android_channel_id'] = '7fbda4a1-81c5-4eb6-9936-a80543c5c06f';
+        OneSignal::addParams($params)->sendNotificationToExternalUser(
+            $text,
+            $user_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
     }
 }
