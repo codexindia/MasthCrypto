@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('country_code');
             $table->string('phone_number')->unique();
             $table->string('date_of_birth');
-            $table->string('language')->default('english');
+            $table->string('language')->nullable()->default('english');
             $table->string('profile_pic')->nullable();
             $table->string('refer_code')->unique();
             $table->decimal('coin',10,4);

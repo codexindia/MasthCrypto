@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ReferData;
 use App\Models\MiningSession;
+
 class HomeController extends Controller
 {
     public function Statics(Request $request)
@@ -14,7 +15,7 @@ class HomeController extends Controller
         $user_id = $request->user()->id;
         $data = array();
         $data['active_miners'] = ReferData::where('user_id', $user_id);
-       
+        $data['total_remote_mining'] = ReferData::where('user_id', $user_id);
         return response()->json([
             'status' => true,
             'valuation' => array(
@@ -23,9 +24,8 @@ class HomeController extends Controller
             ),
             'active_miners' => $data['active_miners']->count(),
             'total_miners' => $data['active_miners']->count(),
-           
             'total_live_mining' => (float) MiningSession::sum('coin'),
-            'total_remote_mining' => (float) 500,
+            'total_remote_mining' =>  (float) 5000.975,
 
         ]);
     }

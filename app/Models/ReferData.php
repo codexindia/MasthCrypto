@@ -14,9 +14,9 @@ class ReferData extends Model
     {
         return $this->HasMany(User::class, 'id', 'referred_to');
     }
-    public function GetMining(): HasMany
+    public function GetMining()
     {
-        return $this->HasMany(MiningSession::class, 'user_id', 'referred_to');
+        return $this->belongsToMany(MiningSession::class, 'user_id', 'referred_to');
     }
     public function GetMiningCoin()
     {
