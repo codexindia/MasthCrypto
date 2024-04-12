@@ -33,8 +33,8 @@ class HomeController extends Controller
             ),
             'active_miners' => $data['active_miners']->count(),
             'total_miners' => $data['active_miners']->count(),
-            'total_live_mining' => (float) MiningSession::sum('coin'),
-            'total_remote_mining' => number_format($total_remote_earning, 3),
+            'total_live_mining' => number_format(MiningSession::sum('coin'), 4),
+            'total_remote_mining' => number_format($total_remote_earning, 4),
 
         ]);
     }
