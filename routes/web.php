@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 /*
@@ -12,9 +13,10 @@ use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use Illuminate\Support\Collection;
 
 Route::get('/', function () {
-   
-
-
+    $file = File::get(base_path('public\olduser.json'));
+     $json = json_decode(json: $file, associative: true);;
+    return  collect($json);
 });

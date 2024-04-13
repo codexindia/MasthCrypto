@@ -42,6 +42,7 @@ class HomeController extends Controller
     {
         return response()->json([
             'status' => true,
+            'button_text' => 'Explore Now',
             'banner_image' => null,
             'action_link' => "#"
             
