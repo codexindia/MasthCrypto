@@ -40,6 +40,7 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
     });
     Route::prefix('home')->controller('HomeController')->group(function(){
         Route::post('/Statics','Statics');
+        Route::post('/popup_banner','popup_banner');
       
     });
 });

@@ -38,4 +38,19 @@ class HomeController extends Controller
 
         ]);
     }
+    public function popup_banner(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'banner_image' => null,
+            'action_link' => "#"
+            
+        ]);
+
+        // return response()->json([
+        //     'status' => false,
+            
+            
+        // ]);
+    }
 }
