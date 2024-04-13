@@ -1,13 +1,20 @@
 <?php
+
 namespace App\Filament\Pages;
+
+
+use Closure;
 use Filament\Forms\Components\{Group, Section};
 use Filament\Forms\Components\{Select, Radio, TextInput};
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
+use Filament\Forms\Set;
+
 
 use Filament\Pages\Page;
 use App\Settings\GeneralSettings;
 use Filament\Pages\SettingsPage;
+use Str;
+
 
 
 class Settings extends SettingsPage
@@ -16,8 +23,7 @@ class Settings extends SettingsPage
     protected static ?int $navigationSort = 3;
 
     protected static string $settings = GeneralSettings::class;
-   
-    
+
     public function form(Form $form): Form
     {
         return $form
@@ -29,12 +35,22 @@ class Settings extends SettingsPage
                                 '1' => 'Enable',
                                 '0' => 'Disable'
                             ])->prefixIcon('heroicon-o-power'),
-                            
+
                         Select::make('force_update')
                             ->required()->options([
                                 '1' => 'Enable',
                                 '0' => 'Disable'
                             ])->prefixIcon('heroicon-o-device-phone-mobile'),
+
+                        TextInput::make('version_code')
+                            ->numeric()
+                            ->label('Version Code')
+                            ->prefixIcon('heroicon-o-arrow-trending-up'),
+
+                     
+
+
+
                         Select::make('ad_network')->options([
                             'admob' => 'Admob',
                         ])->default('admob')->prefixIcon('heroicon-s-signal'),
@@ -67,7 +83,7 @@ class Settings extends SettingsPage
 
             ])->columns(2);
     }
-   
+
     // public function save()
     // {
 
