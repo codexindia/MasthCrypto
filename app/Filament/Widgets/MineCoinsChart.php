@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class MineCoinsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Last 7 Day Coins Mined';
+    protected static ?string $heading = 'Weekly Coins Report';
 
     protected function getData(): array
     {
