@@ -10,6 +10,7 @@ use Filament\Forms\Components\{Group, Section, TextInput, DatePicker, FileUpload
 
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -19,9 +20,9 @@ use Filament\Tables\Columns\TextColumn;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-   
+
     protected static ?string $navigationIcon = 'heroicon-o-users';
-   
+
     public static function form(Form $form): Form
     {
         return $form
@@ -50,16 +51,17 @@ class UserResource extends Resource
                         FileUpload::make('profile_pic')->required()->image()->directory('users/profile')->imageEditor(),
                     ])->collapsible()
                 ])
-                
+
             ]);
-            
     }
 
     public static function table(Table $table): Table
     {
-       
+
         return $table
             ->columns([
+                ImageColumn::make('profile_pic')
+                    ->circular(),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('username')->copyMessage('Username Copied SuccessFully')->copyable()->searchable(),
 
