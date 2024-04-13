@@ -76,7 +76,7 @@ class UserResource extends Resource
                     ),
                 TextColumn::make('created_at')->dateTime('h:i:sa d-m-y')
             ])
-
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -85,7 +85,7 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])->searchPlaceholder('Search (Name,Email,Phone Number)');;
     }
