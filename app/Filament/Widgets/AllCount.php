@@ -31,14 +31,14 @@ class AllCount extends BaseWidget
                 ->color('warning'),
 
             Stat::make('Total Clicks', $TotalClicks->count)
-                ->description('increase in Clicks')
+            ->description('Todays Minings Sessions')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success')
                 ->chart([2, 5, 2, 1, 5, 0]),
             Stat::make('Coin Mined Today', !$TotalClicks->total_coin?0:$TotalClicks->total_coin)
-                ->description('Todays Minings Sessions')
+                ->description('increase in Coins')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
-                ->color('warning')
+                ->color('success')
                 ->chart([2, 5, 2, 1, 5, 0])
         ];
     }
