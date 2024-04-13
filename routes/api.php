@@ -32,7 +32,7 @@ Route::middleware(['check_sc','auth:sanctum'])->group(function () {
     });
     Route::prefix('env')->controller('GeneralSettings')->group(function(){
         Route::post('/check_version','check_version');
-       
+        Route::post('/check_','check_version');
     });
     Route::prefix('mining')->controller('MiningModule')->group(function(){
         Route::post('/checkMiningStatus','checkMiningStatus');
