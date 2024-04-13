@@ -22,7 +22,7 @@ class MineCoinsChart extends ChartWidget
         ->groupBy(DB::raw('DATE(created_at)'))
         ->get()
         ->keyBy(function ($item) {
-            return Carbon::parse($item->date)->format('l');
+            return Carbon::parse($item->date)->format('D');
         });
 
     $labels = array_fill_keys(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 0);
