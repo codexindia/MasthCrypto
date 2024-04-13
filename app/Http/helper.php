@@ -26,7 +26,7 @@ if (!function_exists('coin_action')) {
         $transaction->coin = $coins;
         $transaction->transaction_type = $type;
         $transaction->description = $description;
-        $transaction->transaction_id = 'MST' . time().rand('1000','9999');
+        $transaction->transaction_id = 'MST' .$user_id. time().rand('10','99');
         $transaction->status = 'success';
         $transaction->meta = json_encode($meta);
         if ($transaction->save()) {
