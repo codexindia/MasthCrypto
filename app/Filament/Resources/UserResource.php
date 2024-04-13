@@ -19,15 +19,10 @@ use Filament\Tables\Columns\TextColumn;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected function getDefaultTableSortColumn(): ?string
-    {
-        return 'created_at';
-    }
+    public ?string $tableSortColumn = 'created_at';
 
-    protected function getDefaultTableSortDirection(): ?string
-    {
-        return 'desc';
-    }
+    public ?string $tableSortDirection = 'desc';
+    
     protected static ?string $navigationIcon = 'heroicon-o-users';
    
     public static function form(Form $form): Form
