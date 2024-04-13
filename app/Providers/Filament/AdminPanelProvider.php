@@ -57,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->darkModeBrandLogo(asset('images/logo/dark.svg'))
             ->brandLogo(asset('images/logo/logo.svg'))
-            ->brandLogoHeight('2rem')
+            ->brandLogoHeight('1.5rem')
             ->brandName('Masth Admin Panel')
             ;
     }
