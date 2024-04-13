@@ -19,11 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static function getTableQuery(): Builder
-    {
-        return parent::getTableQuery()
-            ->orderByDesc('created_at');
-    }
+   \
     protected static ?string $navigationIcon = 'heroicon-o-users';
    
     public static function form(Form $form): Form
@@ -85,7 +81,7 @@ class UserResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])->searchPlaceholder('Search (Name,Email,Phone Number)');;
     }
