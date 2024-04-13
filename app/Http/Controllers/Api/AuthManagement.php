@@ -206,7 +206,7 @@ class AuthManagement extends Controller
                 'message' => $message,
             ]);
 
-          Log::info($resp);
+          
             return true;
         } catch (Exception $e) {
             dd("Error: " . $e->getMessage());
