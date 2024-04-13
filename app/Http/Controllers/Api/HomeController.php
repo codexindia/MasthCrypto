@@ -43,7 +43,7 @@ class HomeController extends Controller
         return response()->json([
             'status' => true,
             'button_text' => 'Explore Now',
-            'banner_image' => null,
+            'banner_image' => 'https://www.shutterstock.com/image-photo/word-demo-appearing-behind-torn-260nw-1782295403.jpg',
             'action_link' => "#"
             
         ]);
