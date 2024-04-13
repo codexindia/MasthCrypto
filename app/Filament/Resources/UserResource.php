@@ -19,7 +19,15 @@ use Filament\Tables\Columns\TextColumn;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'created_at';
+    }
 
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'desc';
+    }
     protected static ?string $navigationIcon = 'heroicon-o-users';
    
     public static function form(Form $form): Form
@@ -57,6 +65,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
+       
         return $table
             ->columns([
                 TextColumn::make('name')->searchable(),
