@@ -15,8 +15,8 @@ class AllCount extends BaseWidget
         $activeUserCount = MiningSession::where('created_at', '>=', now()->subHours(24))
         ->distinct('user_id')
         ->count('user_id');
-        $TotalClicks = MiningSession::where('created_at', '=', Carbon::today())
-        ->count('user_id');
+        $TotalClicks = MiningSession::where('created_at', Carbon::today())
+        ->count();
         return [
             Stat::make('Total Users',$user_count)
             ->description('increase in Users')
