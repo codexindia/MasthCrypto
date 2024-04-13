@@ -54,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ->authGuard('admin')
             ->authMiddleware([
                 Authenticate::class,
-            ])->brandLogo(asset('images/logo/masth.png'))
+            ])->brandLogo(asset('images/logo/logo.svg'))
             ->brandLogoHeight('2rem')
             ->brandName('Filament Demo')
             ;
