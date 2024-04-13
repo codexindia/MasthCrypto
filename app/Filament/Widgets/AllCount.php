@@ -21,7 +21,7 @@ class AllCount extends BaseWidget
             ->color('success')
             ->chart([2,5,2,1,5,0]),
             
-            Stat::make('Active User ','10k')
+            Stat::make('Active User ',$activeUserCount)
             ->description('increase in Users')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('success')
