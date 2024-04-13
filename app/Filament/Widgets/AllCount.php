@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use Carbon\Carbon;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use App\Models\User;
@@ -14,7 +15,7 @@ class AllCount extends BaseWidget
         $activeUserCount = MiningSession::where('created_at', '>=', now()->subHours(24))
         ->distinct('user_id')
         ->count('user_id');
-        $TotalClicks = MiningSession::where('created_at', '=', now())
+        $TotalClicks = MiningSession::where('created_at', '=', Carbon::today())
         ->count('user_id');
         return [
             Stat::make('Total Users',$user_count)
