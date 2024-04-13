@@ -25,18 +25,18 @@ class AllCount extends BaseWidget
             ->chart([2,5,2,1,5,0]),
             
             Stat::make('Active User ',$activeUserCount)
-            ->description('increase in Users')
-            ->descriptionIcon('heroicon-m-arrow-trending-up')
-            ->color('success')
-            ->chart([2,5,2,1,5,0]),
+            ->description('Last Mined In 24 Hours')
+            //->descriptionIcon('heroicon-m-arrow-trending-up')
+            ->color('danger'),
+           
 
             Stat::make('Total Clicks',$TotalClicks)
-            ->description('increase in Users')
+            ->description('increase in Clicks')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('success')
             ->chart([2,5,2,1,5,0]),
             Stat::make('Coin Mined Today','10k')
-            ->description('increase in Users')
+            ->description('increase in Mining')
             ->descriptionIcon('heroicon-m-arrow-trending-up')
             ->color('success')
             ->chart([2,5,2,1,5,0])
