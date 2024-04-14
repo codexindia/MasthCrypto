@@ -10,7 +10,7 @@ class UserCountry extends ChartWidget
     protected int | string | array $columnSpan = 'full';
 
     protected static ?string $heading = 'Users Country Wise Joining';
-    public function getTopCountriesByUserCount(int $limit = 20): array
+    public function getTopCountriesByUserCount(int $limit = 15): array
     {
         return User::selectRaw('c.name as country_name, COUNT(*) as total_users')
         ->join('country_infos as c', 'users.country_code', '=', 'c.dial_code')
