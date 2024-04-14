@@ -18,9 +18,9 @@ class MineCoinsChart extends ChartWidget
     
         $data = DB::table('mining_sessions')
         ->selectRaw('DATE(created_at) as date, SUM(coin) as total_coins')
-        ->whereBetween('created_at', [$startOfWeek, $endOfWeek]);
-        // ->groupBy(DB::raw('DATE(created_at)'))
-        // ->get()
+        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->get();
         // ->keyBy(function ($item) {
         //     return Carbon::parse($item->date)->format('D');
         // });
