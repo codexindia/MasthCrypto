@@ -17,5 +17,6 @@ return new class extends SettingsMigration
         $this->migrator->add('general.sm_country_t_charge', '0');
         $this->migrator->add('general.diff_country_t_charge', '0');
         $this->migrator->add('general.version_code', '3.0');
+        $this->migrator->add('general.coin_valuation', '0.014');
     }
 };

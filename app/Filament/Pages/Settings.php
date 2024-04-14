@@ -77,7 +77,11 @@ class Settings extends SettingsPage
                         TextInput::make('diff_country_t_charge')
                             ->required()->label('Other Country Transfer Charges')->prefixIcon('heroicon-o-currency-dollar')
                             ->integer(),
-                    ])->columns(2)
+                            TextInput::make('coin_valuation')
+                            ->numeric()
+                            ->label('Coin Valuation')
+                            ->prefixIcon('heroicon-o-arrow-trending-up'),
+                            ])->columns(2)
 
                 ])
 
