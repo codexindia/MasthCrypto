@@ -12,6 +12,7 @@ class UserChart extends ChartWidget
     protected function getData(): array
     {
         $data = $this->getUserPerMonth();
+        
         return [
             'datasets' => [
                 [
