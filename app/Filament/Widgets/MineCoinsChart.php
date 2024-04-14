@@ -25,8 +25,8 @@ class MineCoinsChart extends ChartWidget
             return Carbon::parse($item->date)->format('l');
         });
 
-    $labels = array_fill_keys(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 0);
-
+   // $labels = array_fill_keys(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 0);
+   $labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     foreach ($data as $day => $item) {
         $labels[$day] = $item->total_coins;
     }
