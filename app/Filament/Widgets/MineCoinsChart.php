@@ -13,8 +13,8 @@ class MineCoinsChart extends ChartWidget
 
     protected function getData(): array
     {
-        $startOfWeek = Carbon::now()->subDays(6)->toDateString();
-    $endOfWeek = Carbon::now()->toDateString();
+        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
     
         $data = DB::table('mining_sessions')
         ->selectRaw('DATE(created_at) as date, SUM(coin) as total_coins')
