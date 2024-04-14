@@ -80,7 +80,7 @@ class Settings extends SettingsPage
                             TextInput::make('coin_valuation')
                             ->numeric()
                             ->label('Coin Valuation')
-                            ->prefixIcon('USD'),
+                            ->prefix('USD'),
                             ])->columns(2)
 
                 ])
