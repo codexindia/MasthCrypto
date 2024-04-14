@@ -26,7 +26,7 @@ class MineCoinsChart extends ChartWidget
         });
 
    // $labels = array_fill_keys(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 0);
-   $labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+   $labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',0];
     foreach ($data as $day => $item) {
         $labels[$day] = $item->total_coins;
     }
