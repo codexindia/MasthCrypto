@@ -163,6 +163,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Filament\FilamentServiceProvider::class,
         Berkayk\OneSignal\OneSignalServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
