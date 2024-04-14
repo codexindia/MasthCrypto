@@ -7,7 +7,8 @@ use Filament\Widgets\ChartWidget;
 
 class UserCountry extends ChartWidget
 {
-    
+    protected int | string | array $columnSpan = 'full';
+
     protected static ?string $heading = 'Users Country Wise Joining';
     public function getTopCountriesByUserCount(int $limit = 7): array
     {
