@@ -7,8 +7,9 @@ use Filament\Widgets\ChartWidget;
 
 class UserCountry extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
-    public function getTopCountriesByUserCount(int $limit = 10): array
+    
+    protected static ?string $heading = 'Users Country Wise Joining';
+    public function getTopCountriesByUserCount(int $limit = 7): array
     {
         return User::selectRaw('c.name as country_name, COUNT(*) as total_users')
         ->join('country_infos as c', 'users.country_code', '=', 'c.dial_code')
@@ -25,7 +26,7 @@ class UserCountry extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Top Joining Countrys',
+                    'label' => 'Top Joining Country',
                     'data' => array_values($topCountries),
                 ]
             ],
