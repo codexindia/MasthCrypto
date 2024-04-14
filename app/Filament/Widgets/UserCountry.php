@@ -9,7 +9,7 @@ class UserCountry extends ChartWidget
 {
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?string $heading = 'Users Country Wise Joining';
+    protected static ?string $heading = 'Country Wise Joining';
     public function getTopCountriesByUserCount(int $limit = 15): array
     {
         return User::selectRaw('c.name as country_name, COUNT(*) as total_users')
@@ -17,6 +17,7 @@ class UserCountry extends ChartWidget
         ->groupBy('c.name')
         ->orderByDesc('total_users')
         ->limit($limit)
+        
         ->pluck('total_users', 'country_name')
         ->toArray();
     }
