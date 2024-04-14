@@ -30,7 +30,6 @@ class MineCoinsChart extends ChartWidget
     foreach ($data as $day => $item) {
         $labels[$day] = $item->total_coins;
     }
-    dd(array_values($labels));
         return [
             'datasets' => [
                 [
