@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Filament\Widgetss;
+namespace App\Filament\Widgetsg;
 
 
 use App\Models\User;
 
 use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -40,8 +41,9 @@ class TopRefering extends BaseWidget
             Tables\Columns\TextColumn::make('email')
                 ->label('email')
               ,
-            Tables\Columns\BadgeColumn::make('referral_count')
+            BadgeColumn::make('referral_count')
                 ->label('Referrals')
+                ->placeholder('0')
                 ->color('success'),
         ];
     }
