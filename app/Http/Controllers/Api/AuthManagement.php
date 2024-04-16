@@ -17,10 +17,10 @@ class AuthManagement extends Controller
     {
         $request->validate([
             'country_code' => 'required|numeric',
-            'phone' => 'required|numeric|exists:users,phone_number|min:7|max:15',
+            'phone' => 'required|numeric|exists:users,phone_number|max:15',
         ], [
             'phone.exists' => 'Phone Number Has Not Registered',
-            'phone.min' => 'You Have Entered An Invalid Mobile Number',
+        
             'phone.max' => 'You Have Entered An Invalid Mobile Number'
         ]);
         $temp = ['country_code' => $request->country_code];
@@ -65,7 +65,7 @@ class AuthManagement extends Controller
         $request->validate([
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
-            'phone' => 'required|numeric|exists:users,phone_number|min:7|max:15',
+            'phone' => 'required|numeric|exists:users,phone_number|max:15',
         ]);
         //  return  $this->VerifyOTP($request->phone, $request->otp);
         if ($this->VerifyOTP($request->phone, $request->otp)) {
@@ -155,9 +155,9 @@ class AuthManagement extends Controller
     public function resend(Request $request)
     {
         $request->validate([
-            'phone' => 'required|numeric|min:7|max:15',
+            'phone' => 'required|numeric|max:15',
         ], [
-            'phone.min' => 'You Have Entered An Invalid Mobile Number',
+            
             'phone.max' => 'You Have Entered An Invalid Mobile Number'
         ]);
         $phone = $request->phone;
