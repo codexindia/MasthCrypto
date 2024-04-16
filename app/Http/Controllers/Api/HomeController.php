@@ -40,6 +40,12 @@ class HomeController extends Controller
     }
     public function popup_banner(Request $request)
     {
+        
+        // return response()->json([
+        //     'status' => false,
+            
+            
+        // ]);
         return response()->json([
             'status' => true,
             'button_text' => 'Follow Now',
@@ -48,10 +54,5 @@ class HomeController extends Controller
             
         ]);
 
-        // return response()->json([
-        //     'status' => false,
-            
-            
-        // ]);
     }
 }
