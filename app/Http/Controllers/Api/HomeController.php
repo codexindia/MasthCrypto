@@ -41,16 +41,16 @@ class HomeController extends Controller
     public function popup_banner(Request $request)
     {
         
-        return response()->json([
-            'status' => false,
+        //return response()->json([
+        //    'status' => false,
             
             
-        ]);
+      //  ]);
         return response()->json([
             'status' => true,
-            'button_text' => 'Follow Now',
-            'banner_image' => url('/follow.jpeg'),
-            'action_link' => "https://x.com/masthminer"
+            'button_text' => 'Watch Now',
+            'banner_image' => url('/migration.jpeg'),
+            'action_link' => "https://yt.openinapp.co/yp8nv"
             
         ]);
 
