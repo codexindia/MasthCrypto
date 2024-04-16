@@ -20,7 +20,7 @@ if (!function_exists('get_setting')) {
 if (!function_exists('coin_action')) {
     function coin_action(int $user_id, float $coins, $type = "debit", $description = null, $meta = [])
     {
-        DB::beginTransaction();
+      
         $user = User::findOrFail($user_id);
         if ($user)
             $transaction = new CoinsTransaction;
@@ -34,17 +34,17 @@ if (!function_exists('coin_action')) {
         if ($transaction->save()) {
             if ($type == "credit") {
                 if ($user->increment('coin', $coins)) {
-                    DB::commit();
+                  
                     return true;
                 } else {
-                    DB::rollBack();
+                    return false;
                 }
             } else {
                 if ($user->decrement('coin', $coins)) {
-                    DB::commit();
+                   
                     return true;
                 } else {
-                    DB::rollBack();
+                    return false;
                 }
             }
         }
