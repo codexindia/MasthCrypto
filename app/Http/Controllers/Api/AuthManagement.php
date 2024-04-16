@@ -137,7 +137,7 @@ class AuthManagement extends Controller
             'dob' => 'required|max:100',
             'lang' => 'required|max:100',
             'name' => 'required',
-            'phone' => 'required|numeric|unique:users,phone_number|min_digits:7|max_digits:15',
+            'phone' => 'required|numeric|min_digits:7|max_digits:15|unique:users,phone_number',
             'country_code' => 'required|numeric'
         ]);
         $temp = [
