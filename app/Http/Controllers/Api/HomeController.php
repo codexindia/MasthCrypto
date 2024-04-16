@@ -40,18 +40,18 @@ class HomeController extends Controller
     }
     public function popup_banner(Request $request)
     {
-        // return response()->json([
-        //     'status' => true,
-        //     'button_text' => 'Explore Now',
-        //     'banner_image' => 'https://www.shutterstock.com/image-photo/word-demo-appearing-behind-torn-260nw-1782295403.jpg',
-        //     'action_link' => "#"
-            
-        // ]);
-
         return response()->json([
-            'status' => false,
-            
+            'status' => true,
+            'button_text' => 'Follow Now',
+            'banner_image' => url('/follow.jpeg'),
+            'action_link' => "https://x.com/masthminer"
             
         ]);
+
+        // return response()->json([
+        //     'status' => false,
+            
+            
+        // ]);
     }
 }
