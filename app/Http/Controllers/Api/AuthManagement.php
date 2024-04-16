@@ -17,9 +17,11 @@ class AuthManagement extends Controller
     {
         $request->validate([
             'country_code' => 'required|numeric',
-            'phone' => 'required|numeric|exists:users,phone_number|digits:10',
+            'phone' => 'required|numeric|exists:users,phone_number|min:7|max:15',
         ], [
             'phone.exists' => 'Phone Number Has Not Registered',
+            'phone.min' => 'You Have Entered An Invalid Mobile Number',
+            'phone.max' => 'You Have Entered An Invalid Mobile Number'
         ]);
         $temp = ['country_code' => $request->country_code];
         if ($this->genarateotp($request->phone, $temp)) {
@@ -63,7 +65,7 @@ class AuthManagement extends Controller
         $request->validate([
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
-            'phone' => 'required|numeric|exists:users,phone_number|digits:10',
+            'phone' => 'required|numeric|exists:users,phone_number|min:7|max:15',
         ]);
         //  return  $this->VerifyOTP($request->phone, $request->otp);
         if ($this->VerifyOTP($request->phone, $request->otp)) {
@@ -97,12 +99,12 @@ class AuthManagement extends Controller
             'country_code' => 'required|numeric',
             'otp' => 'required|numeric|digits:6',
             'phone' => 'required|numeric|unique:users,phone_number',
-           
+
         ]);
         $data = $this->VerifyOTP($request->phone, $request->otp);
         if ($data) {
             $temp = json_decode($data->temp);
-         
+
             $new_user = User::create([
                 'name' => $temp->name,
                 'username' => $temp->username,
@@ -110,7 +112,7 @@ class AuthManagement extends Controller
                 'language' => $temp->lang,
                 'phone_number' => $request->phone,
                 'country_code' => $request->country_code,
-                'refer_code' => 'MST'.rand('100000','999999'),
+                'refer_code' => 'MST' . rand('100000', '999999'),
                 'coin' => 0,
             ]);
 
@@ -153,7 +155,10 @@ class AuthManagement extends Controller
     public function resend(Request $request)
     {
         $request->validate([
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|numeric|min:7|max:15',
+        ], [
+            'phone.min' => 'You Have Entered An Invalid Mobile Number',
+            'phone.max' => 'You Have Entered An Invalid Mobile Number'
         ]);
         $phone = $request->phone;
 
@@ -199,14 +204,14 @@ class AuthManagement extends Controller
         $message = "Hello\nMasth Verification OTP is " . $otp;
 
         try {
-           $resp = Http::post('https://wpsender.nexgino.com/api/create-message', [
+            $resp = Http::post('https://wpsender.nexgino.com/api/create-message', [
                 'appkey' => '284b654c-5c75-4749-9cd0-087f216953e8',
                 'authkey' => 'FsIudNkui5CdnUA7mv70GyFcwVGOoidkFN8akc8Us7Md8R3dGY',
                 'to' => $receiverNumber,
                 'message' => $message,
             ]);
 
-          
+
             return true;
         } catch (Exception $e) {
             dd("Error: " . $e->getMessage());
