@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ReferData;
 use App\Models\MiningSession;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\PopupBanner;
 class HomeController extends Controller
 {
     public function Statics(Request $request)
@@ -40,17 +40,19 @@ class HomeController extends Controller
     }
     public function popup_banner(Request $request)
     {
-        
-        //return response()->json([
-        //    'status' => false,
+        $data = PopupBanner::first();
+        if(!$data->visibility)
+        return response()->json([
+           'status' => false,
             
             
-      //  ]);
+       ]);
+       else
         return response()->json([
             'status' => true,
-            'button_text' => 'Watch Now',
-            'banner_image' => url('/migration.jpeg'),
-            'action_link' => "https://yt.openinapp.co/yp8nv"
+            'button_text' => $data->button_text,
+            'banner_image' => url('/storage/'.$data->image),
+            'action_link' => $data->action_link
             
         ]);
 

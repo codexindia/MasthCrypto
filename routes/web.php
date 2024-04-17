@@ -15,8 +15,4 @@ use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 */
 use Illuminate\Support\Collection;
 
-Route::get('/', function () {
-    $file = File::get(base_path('public\olduser.json'));
-     $json = json_decode(json: $file, associative: true);;
-    return  collect($json)->where('email','codeAbinash@gmail.com')->value('balance');
-});
+
