@@ -44,8 +44,6 @@ class HomeController extends Controller
         if(!$data->visibility)
         return response()->json([
            'status' => false,
-            
-            
        ]);
        else
         return response()->json([

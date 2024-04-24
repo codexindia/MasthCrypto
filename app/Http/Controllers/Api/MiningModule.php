@@ -61,13 +61,13 @@ class MiningModule extends Controller
             ]);
         }
         $new = new MiningSession;
-        $new->session_id = time();
+        $new->session_id = $request->user()->id . time() . rand('10', '99');
         $new->user_id = $request->user()->id;
         $new->start_time = Carbon::now();
         $new->end_time = Carbon::now()->addHours(3);
         $new->coin = 3;
         $new->save();
-          return response()->json([
+        return response()->json([
             'status' => true,
             'message' => 'Mining Session Submit SuccessFully'
         ]);
