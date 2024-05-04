@@ -2,21 +2,32 @@
 
 namespace App\Filament\Pages;
 
+
+
+use App\Models\User;
 use Filament\Actions\Action;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
+use Filament\Forms\Components\{FileUpload, Group, Section, Textarea, TextInput};
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+
+use Filament\Support\View\Components\Modal;
+use Filament\Tables\Actions\Contracts\HasTable;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Table;
 
 class PushNotification extends Page
 {
+
+
+
+
+
     protected static ?int $navigationSort = 3;
-
-
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
     protected static string $view = 'filament.pages.push-notification';
@@ -24,6 +35,7 @@ class PushNotification extends Page
     {
         return [];
     }
+    public $data = [];
     public function form(Form $form): Form
     {
         return $form
@@ -32,7 +44,7 @@ class PushNotification extends Page
                     Section::make('Banner Image')->schema([
                         FileUpload::make('image')
                             ->image()
-                            ->directory('users/popup')
+                            ->directory('users/push_notification')
                             ->label('Banner Image'),
                     ]),
 
@@ -40,29 +52,40 @@ class PushNotification extends Page
                 Group::make()->schema([
                     Section::make('General options')->schema([
                         TextInput::make('title')->required(),
-                       
+
                         Textarea::make('message')->columnSpanFull()
-
-
-
-
                     ]),
 
                 ]),
             ])->columns(2)->statePath('data');;
     }
+
     protected function getActions(): array
     {
         return [
             Action::make('Push Notification')
                 ->icon('heroicon-o-paper-airplane')
-                ->requiresConfirmation()
+
                 ->submit('save')
+                ->requiresConfirmation()
+                ->keyBindings(['command+s', 'ctrl+s'])
+
+
 
         ];
     }
     public function save()
     {
-        dd($this->form->getState());
+        if ($this->form->getState()['image'] != null) {
+
+
+            $params['big_picture'] = url('/storage/' . $this->form->getState()['image']);
+        }
+        sendpush(null, $this->form->getState()['message'], $this->form->getState()['title'], $params);
+
+        Notification::make()
+            ->title('Notification Pushed SuccessFully')
+            ->success()
+            ->send();
     }
 }

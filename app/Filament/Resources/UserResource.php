@@ -94,7 +94,10 @@ class UserResource extends Resource
             //
         ];
     }
-
+    protected function getHeaderActions(): array
+    {
+        return [];
+    }
     public static function getPages(): array
     {
         return [

@@ -20,7 +20,7 @@ if (!function_exists('get_setting')) {
 if (!function_exists('coin_action')) {
     function coin_action(int $user_id, float $coins, $type = "debit", $description = null, $meta = [])
     {
-      
+
         $user = User::findOrFail($user_id);
         if ($user)
             $transaction = new CoinsTransaction;
@@ -34,14 +34,14 @@ if (!function_exists('coin_action')) {
         if ($transaction->save()) {
             if ($type == "credit") {
                 if ($user->increment('coin', $coins)) {
-                  
+
                     return true;
                 } else {
                     return false;
                 }
             } else {
                 if ($user->decrement('coin', $coins)) {
-                   
+
                     return true;
                 } else {
                     return false;
@@ -50,17 +50,29 @@ if (!function_exists('coin_action')) {
         }
         return false;
     }
-    function sendpush($user_id, $text)
+    function sendpush($user_id, $text,$heading = null,$params = [])
     {
-        $params = [];
+       
         $params['android_channel_id'] = '7fbda4a1-81c5-4eb6-9936-a80543c5c06f';
-        OneSignal::addParams($params)->sendNotificationToExternalUser(
-            $text,
-            $user_id,
-            $url = null,
-            $data = null,
-            $buttons = null,
-            $schedule = null
-        );
+       
+        if ($user_id == null) {
+            OneSignal::addParams($params)->sendNotificationToAll(
+                $text,
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null,
+                $heading
+            );
+        } else {
+            OneSignal::addParams($params)->sendNotificationToExternalUser(
+                $text,
+                $user_id,
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null
+            );
+        }
     }
 }
