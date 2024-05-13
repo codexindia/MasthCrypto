@@ -50,7 +50,7 @@ class MinningSession extends Command
                     ReferData::where([
                         'user_id' => $ref_user->id,
                         'referred_to' => $item->user->id,
-                    ])->increment('coins_earn', $refer_coin);
+                    ])->first()->increment('coins_earn', $refer_coin);
                 }
                 //end refer
                 if (!coin_action($item->user_id, $item->coin, 'credit', "Coins Added For Mining Session " . $item->session_id, ['session_id' => $item->session_id])) {
