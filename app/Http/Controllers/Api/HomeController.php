@@ -34,7 +34,7 @@ class HomeController extends Controller
             'active_miners' => $data['active_miners']->count(),
             'total_miners' => $data['active_miners']->count(),
             'total_live_mining' =>MiningSession::sum('coin'),
-            'total_remote_mining' => number_format($total_remote_earning, 4),
+            'total_remote_mining' => $total_remote_earning,
 
         ]);
     }
