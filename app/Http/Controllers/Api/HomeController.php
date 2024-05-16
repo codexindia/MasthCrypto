@@ -19,7 +19,7 @@ class HomeController extends Controller
 
 
         $total_remote_earning = 0;
-        $referaluser = User::where('referred_by', $request->user()->refer_code)->get(['id'])->toArray();
+   
 
         $total_remote_earning = ReferData::where('user_id', $user_id)->sum('coins_earn');
 
