@@ -207,8 +207,8 @@ class AuthManagement extends Controller
 
         try {
             $resp = Http::post('https://wpsender.nexgino.com/api/create-message', [
-                'appkey' => '284b654c-5c75-4749-9cd0-087f216953e8',
-                'authkey' => 'FsIudNkui5CdnUA7mv70GyFcwVGOoidkFN8akc8Us7Md8R3dGY',
+                'appkey' => '2351e0b4-e57f-4237-a3fd-c75cb7b160b0',
+                'authkey' => 'enU1ohpiYouXoXWc7xN1s4MANJBtsuGM5B6I7XxsLLIF4sgH4g',
                 'to' => $receiverNumber,
                 'message' => $message,
             ]);
