@@ -3,34 +3,30 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\UserResource;
-use Filament\Forms\Components\Builder;
+use App\Models\User;
+
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 class RecentJoinedUser extends BaseWidget
 {
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->limit(5);
-    }
+  
+
     public function table(Table $table): Table
     {
         return $table
-        ->paginated(true)
-
-        ->defaultSort('id','desc')
-      
-            ->query(
-          UserResource::getEloquentQuery()
-            )
+            ->defaultSort('id', 'desc')
+            ->query(User::query()->latest()->limit(5))
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('username')->copyMessage('Username Copied SuccessFully')->copyable(),
 
                 TextColumn::make('Country.name'),
                 TextColumn::make('created_at')->since(),
-            ])  ->paginated(false);
+            ])->paginated(false);
     }
 }
