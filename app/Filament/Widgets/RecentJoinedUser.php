@@ -13,8 +13,10 @@ class RecentJoinedUser extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
+        ->paginated(true)
+
         ->defaultSort('id','desc')
-        
+      
             ->query(
           UserResource::getEloquentQuery()
             )
