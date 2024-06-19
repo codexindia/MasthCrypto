@@ -107,7 +107,7 @@ class UserResource extends Resource
                         ->action(fn (User $record) =>  self::blockuser($record, 0))
                         ->hidden(fn (User $record) => $record->GetBlockStatus == null)
                         ->icon('heroicon-m-no-symbol'),
-                        Action::make('activities')->icon('heroicon-m-presentation-chart-bar')->url(fn ($record) => UserResource::getUrl('activities', ['record' => $record])),
+                        
                     Tables\Actions\EditAction::make(),
                 ])->label('Actions')
                     ->button()
