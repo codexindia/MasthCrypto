@@ -83,4 +83,8 @@ class User extends Authenticatable
     {
        return $this->hasMany(MiningSession::class,'user_id','id');
     }
+    public function GetBlockStatus()
+    {
+       return $this->hasOne(BlockedUser::class,'user_id','id');
+    }
 }
