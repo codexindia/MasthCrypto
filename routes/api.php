@@ -41,6 +41,8 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
     Route::prefix('home')->controller('HomeController')->group(function(){
         Route::post('/Statics','Statics');
         Route::post('/popup_banner','popup_banner');
-      
+    });
+    Route::prefix('wallet')->controller('WalletManager')->group(function(){
+        Route::post('/getTransaction','getTransaction');
     });
 });
