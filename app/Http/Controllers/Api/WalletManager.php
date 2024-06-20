@@ -71,6 +71,8 @@ class WalletManager extends Controller
             DB::commit();
             return response()->json([
                 'status' => true,
+                'coins' => $request->coins,
+                'trx' =>  $new->trx_id,
                 'message' => 'Coin Transferred SuccessFully'
             ]);
         } catch (Exception $e) {
