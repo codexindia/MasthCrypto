@@ -47,4 +47,8 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
         Route::post('/getNameByUsername','getNameByUsername');
         Route::post('/sendCoin','sendCoin');
     });
+    Route::prefix('notification')->controller('NotificationManager')->group(function(){
+        Route::post('/getNotification','getNotification');
+        Route::post('/markRead','markRead');
+    });
 });
