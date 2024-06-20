@@ -23,26 +23,27 @@ if (!function_exists('coin_action')) {
 
         $user = User::findOrFail($user_id);
         if ($user)
-            $transaction = new CoinsTransaction;
+        $trx = 'MST' . $user_id . time() . rand('10', '99');
+        $transaction = new CoinsTransaction;
         $transaction->user_id = $user_id;
         $transaction->coin = $coins;
         $transaction->transaction_type = $type;
         $transaction->description = $description;
-        $transaction->transaction_id = 'MST' . $user_id . time() . rand('10', '99');
+        $transaction->transaction_id = $trx ;
         $transaction->status = 'success';
         $transaction->meta = json_encode($meta);
         if ($transaction->save()) {
             if ($type == "credit") {
                 if ($user->increment('coin', $coins)) {
 
-                    return true;
+                    return $trx;
                 } else {
                     return false;
                 }
             } else {
                 if ($user->decrement('coin', $coins)) {
 
-                    return true;
+                    return $trx;
                 } else {
                     return false;
                 }
@@ -50,11 +51,11 @@ if (!function_exists('coin_action')) {
         }
         return false;
     }
-    function sendpush($user_id, $text,$heading = null,$params = [])
+    function sendpush($user_id, $text, $heading = null, $params = [])
     {
-       
+
         $params['android_channel_id'] = '7fbda4a1-81c5-4eb6-9936-a80543c5c06f';
-       
+
         if ($user_id == null) {
             OneSignal::addParams($params)->sendNotificationToAll(
                 $text,
