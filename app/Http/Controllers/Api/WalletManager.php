@@ -16,6 +16,7 @@ class WalletManager extends Controller
     {
         $record = CoinsTransaction::select(['coin', 'transaction_type', 'description', 'transaction_id', 'status', 'created_at'])
             ->where('user_id', $request->user()->id)
+            ->orderBy('id','desc')
             ->paginate(10);
         return response()->json([
             'status' => true,
