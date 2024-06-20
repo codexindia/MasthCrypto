@@ -44,5 +44,6 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
     });
     Route::prefix('wallet')->controller('WalletManager')->group(function(){
         Route::post('/getTransaction','getTransaction');
+        Route::post('/getNameByUsername','getNameByUsername');
     });
 });

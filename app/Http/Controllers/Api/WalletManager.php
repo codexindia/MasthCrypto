@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\CoinsTransaction;
 
@@ -17,6 +18,18 @@ class WalletManager extends Controller
         return response()->json([
             'status' => true,
             'data' => $record,
+            'message' => 'Retreive Success'
+        ]);
+    }
+    public function getNameByUsername(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|min:4|exists:users,username'
+        ]);
+        $user = User::select(['name','username','profile_pic'])->where('username',$request->username)->first();
+        return response()->json([
+            'status' => true,
+            'data' => $user,
             'message' => 'Retreive Success'
         ]);
     }
