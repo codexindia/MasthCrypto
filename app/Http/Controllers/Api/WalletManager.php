@@ -27,9 +27,18 @@ class WalletManager extends Controller
     public function getNameByUsername(Request $request)
     {
         $request->validate([
-            'username' => 'required|min:4|exists:users,username'
+            'username' => 'required|min:4'
         ]);
+      
         $user = User::select(['name', 'username', 'profile_pic'])->where('username', $request->username)->first();
+        if($user == null)
+        {
+            return response()->json([
+                'status' => false,
+               
+                'message' => 'Username Is Invalid'
+            ]);
+        }
         return response()->json([
             'status' => true,
             'data' => $user,
