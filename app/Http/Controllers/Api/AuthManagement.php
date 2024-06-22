@@ -13,6 +13,24 @@ use Illuminate\Support\Facades\Log;
 
 class AuthManagement extends Controller
 {
+    public function check_username(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+        ]);
+        $check = User::where('username', $request->username);
+        if ($check->count() > 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'username not available'
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'username is available'
+            ]);
+        }
+    }
     public function login_OTP(Request $request)
     {
         $request->validate([
