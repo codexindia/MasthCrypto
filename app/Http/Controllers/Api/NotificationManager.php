@@ -31,8 +31,8 @@ class NotificationManager extends Controller
     public function markRead(Request $request)
     {
 
-        // $user = User::find($request->user()->id);
-        // $user->unreadNotifications->markAsRead();
+        $user = User::find($request->user()->id);
+        $user->unreadNotifications->markAsRead();
         return response()->json([
             'status' => true,
         ]);
