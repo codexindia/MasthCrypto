@@ -76,6 +76,7 @@ class PushNotification extends Page
     }
     public function save()
     {
+        $params = array();
         if ($this->form->getState()['image'] != null) {
 
 
