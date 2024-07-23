@@ -75,7 +75,7 @@ class UserResource extends Resource
                 TextColumn::make('username')->copyMessage('Username Copied SuccessFully')->copyable()->searchable(),
 
                 TextColumn::make('Country.name'),
-                TextColumn::make('phone_number')
+                TextColumn::make('phone_number')->searchable()
                     ->prefix(
                         function (User $record): string {
                             return "+" . $record->country_code;
