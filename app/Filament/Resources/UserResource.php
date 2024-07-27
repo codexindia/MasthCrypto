@@ -109,6 +109,7 @@ class UserResource extends Resource
                         ->icon('heroicon-m-no-symbol'),
                         
                     Tables\Actions\EditAction::make(),
+                    Action::make('Transactions')->icon('heroicon-m-circle-stack')->url(fn ($record) => UserResource::getUrl('transactions', ['record' => $record])),
                 ])->label('Actions')
                     ->button()
 
@@ -134,7 +135,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
-           
+            'transactions' => Pages\ListUserTransactions::route('/{record}/transactions'),
         ];
     }
     public static function blockuser(User $user, $status, $data = array())

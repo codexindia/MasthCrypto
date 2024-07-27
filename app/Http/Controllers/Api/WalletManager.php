@@ -21,7 +21,7 @@ class WalletManager extends Controller
         return response()->json([
             'status' => true,
             'data' => $record,
-            'message' => 'Retreive Success'
+            'message' => 'Retrieve Success'
         ]);
     }
     public function getNameByUsername(Request $request)

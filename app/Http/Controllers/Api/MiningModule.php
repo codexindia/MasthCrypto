@@ -60,6 +60,7 @@ class MiningModule extends Controller
                 'message' => 'An Active Mining Session is already Running'
             ]);
         }
+        
         $new = new MiningSession;
         $new->session_id = $request->user()->id . time() . rand('10', '99');
         $new->user_id = $request->user()->id;
