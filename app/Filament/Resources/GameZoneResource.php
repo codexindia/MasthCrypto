@@ -35,11 +35,14 @@ class GameZoneResource extends Resource
                             ->required()
                             ->numeric()
                             ->integer(),
+                            Group::make()->schema([
                         Forms\Components\Select::make('category')
                             ->required()
                             ->options([
-                                'arcade' => 'Arcade',
-                                'actions' => 'Actions',
+                                'Featured' => 'Featured',
+                                'Puzzle' => 'Puzzle',
+                                'Arcade' => 'Arcade',
+                                'Simulation' => 'Simulation',
                             ]),
                         Forms\Components\Select::make('visibility')
                             ->required()
@@ -47,6 +50,7 @@ class GameZoneResource extends Resource
                                 'hidden' => 'Hidden',
                                 'show' => 'Show',
                             ])
+                            ])->columns(2)
                     ])
                 ]),
                 Group::make()->schema([
