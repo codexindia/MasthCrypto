@@ -22,7 +22,7 @@ class GameZone extends Controller
         //     )
         //     ->orderBy('gameId', 'desc')->get();
         $gameData = GameData::where('category', $request->cat)
-        ->orderBy('gameId', 'desc')->get();
+       ->get();
         return response()->json([
             'status' => true,
             'data' => $gameData,
