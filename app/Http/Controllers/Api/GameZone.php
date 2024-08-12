@@ -14,10 +14,7 @@ class GameZone extends Controller
         $url = url("/storage//");
         $gameData = GameData::where('category', $request->cat)
         ->select(DB::raw("CONCAT('$url/',thumbnail) AS thumbnail")
-        ,'gameName','gameWebLink','rewardCoins','category'
-
-        )
-       
+        ,'gameName','gameWebLink','rewardCoins','category')
         ->orderBy('gameId', 'desc')->get();
         
         return response()->json([
