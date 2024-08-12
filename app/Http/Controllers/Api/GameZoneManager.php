@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GameZone as GameData;
 use Illuminate\Support\Facades\DB;
 
-class GameZone extends Controller
+class GameZoneManager extends Controller
 {
     public function getGames(Request $request)
     {

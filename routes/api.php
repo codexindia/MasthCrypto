@@ -52,7 +52,7 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
         Route::post('/getNotification','getNotification');
         Route::post('/markRead','markRead');
     });
-    Route::prefix('gameZone')->controller('GameZone')->group(function(){
+    Route::prefix('gameZone')->controller('GameZoneManager')->group(function(){
         Route::post('/getGames/{cat}','getGames');
     });
 });
