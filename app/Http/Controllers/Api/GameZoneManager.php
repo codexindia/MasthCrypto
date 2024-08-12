@@ -21,10 +21,17 @@ class GameZoneManager extends Controller
                 'category'
             )
             ->orderBy('gameId', 'desc')->get();
-    //     $gameData = GameZone::where('category', $request->cat)
-    //    ->get();
+            $carousal = array([
+                'name' => 'asdasd',
+                'imgSrc' => url('images/car1.png')
+            ],
+            [
+                'name' => 'asdasd',
+                'imgSrc' => url('images/car1.png')
+            ]);
         return response()->json([
             'status' => true,
+            'carousal' => $carousal,
             'data' => $gameData,
             'message' => 'games successfully retrieves'
         ]);
