@@ -57,6 +57,7 @@ class GameZoneResource extends Resource
                     Section::make('Thumbnail Preview')->schema([
                         Forms\Components\FileUpload::make('thumbnail')
                             ->image()
+                          
                             ->directory('games/thumbnail')
                             ->nullable(),
                     ])
