@@ -71,7 +71,7 @@ class MiningModule extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Mining Session Submit SuccessFully',
-            'mining_data' => $new
+            
         ]);
     }
 }
