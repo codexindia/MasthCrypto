@@ -26,7 +26,7 @@ class GameZone extends Controller
         return response()->json([
             'status' => true,
             'data' => $gameData,
-            'message' => 'games successfully retrieve'
+            'message' => 'games successfully retrieves'
         ]);
     }
 }
