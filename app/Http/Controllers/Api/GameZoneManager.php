@@ -12,7 +12,7 @@ class GameZoneManager extends Controller
     public function getGames(Request $request)
     {
         $url = url("/storage//");
-        $gameData = GameData::where('category', $request->cat)
+        $gameData = GameZone::where('category', $request->cat)
             ->select(
                 DB::raw("CONCAT('$url/',thumbnail) AS thumbnail"),
                 'gameName',
