@@ -36,11 +36,10 @@ class User extends Authenticatable
     ];
     public function getProfilePicAttribute($value)
     {
-        if(!$value == null)
-        {
+        if (!$value == null) {
             return asset(Storage::url($value));
         }
-       return url('images/pp.jpg');
+        return url('images/pp.jpg');
     }
     function toCamelCaseMethod1($inputString)
     {
@@ -54,7 +53,7 @@ class User extends Authenticatable
 
         return $camelCase;
     }
-    
+
 
 
     protected $casts = [
@@ -68,23 +67,32 @@ class User extends Authenticatable
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => $this->toCamelCaseMethod1($value),
+            get: fn(string $value) => $this->toCamelCaseMethod1($value),
         );
     }
     protected function email(): Attribute
     {
-       
+
         return Attribute::make(
-            get: fn ($value) => strtolower($value),
+            get: fn($value) => strtolower($value),
         );
     }
-   
+
     public function GetMining()
     {
-       return $this->hasMany(MiningSession::class,'user_id','id');
+        return $this->hasMany(MiningSession::class, 'user_id', 'id');
     }
     public function GetBlockStatus()
     {
-       return $this->hasOne(BlockedUser::class,'user_id','id');
+        return $this->hasOne(BlockedUser::class, 'user_id', 'id');
+    }
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referred_by');
+    }
+
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'referred_by');
     }
 }
