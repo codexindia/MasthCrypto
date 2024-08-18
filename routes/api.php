@@ -29,7 +29,7 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
     Route::prefix('refer')->controller('ReferControll')->group(function(){
         Route::post('/claim','claim');
         Route::post('/skip','skip');
-        Route::post('/get_referred_members','get_referred_members');
+        Route::post('/get_referred_members/{status}','get_referred_members');
     });
     Route::prefix('env')->controller('GeneralSettings')->group(function(){
         Route::post('/check_version','check_version');
