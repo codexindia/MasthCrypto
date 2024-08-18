@@ -62,7 +62,7 @@ class ReferControll extends Controller
                     'users.name',
                     'users.phone_number',
                     'users.country_code',
-                    DB::raw('MAX(mining_sessions.end_time) as last_mining_session_time')
+                    DB::raw('MAX(mining_sessions.end_time) as last_active_time')
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
                 ->where('mining_sessions.end_time', '>=', Carbon::now()->subHours(24))
@@ -85,7 +85,7 @@ class ReferControll extends Controller
                     'users.name',
                     'users.phone_number',
                     'users.country_code',
-                    DB::raw('MAX(mining_sessions.end_time) as last_mining_session_time')
+                    DB::raw('MAX(mining_sessions.end_time) as last_active_time')
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
                 ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.country_code')
