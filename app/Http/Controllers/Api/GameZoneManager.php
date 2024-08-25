@@ -100,12 +100,13 @@ class GameZoneManager extends Controller
         });
         $totalTime = GamePlayHistory::where([
             'userId' => $userId,
-            //  'claimed' => '0',
+            //  'claimed' => '1',
         ])->count();
+       
         return response()->json([
             'status' => true,
             'thumbnail' => url('storage/' . $coin->thumbnail),
-            'canClaimCoin' => $playedMinute * ($coin->rewardCoins * ($totalTime % 10)),
+            'canClaimCoin' =>($coin->rewardCoins * (floor($totalTime /10)+1)),
             'ranking' => $userRank + 1,
             'coinPerMinute' => $coin->rewardCoins,
             'message' => 'games successfully retrieves'
