@@ -85,9 +85,9 @@ class GameZoneManager extends Controller
         $gameIds = GamePlayHistory::where([
             'userId' => $userId,
             'claimed' => '0',
-        ])->get('gameId');
+        ])->orderBy('created_at', 'desc')->get('gameId');
 
-        $coin = GameZone::whereIn('gameId', $gameIds)->latest()->first();
+        $coin = GameZone::whereIn('gameId', $gameIds)->first();
 
         $ranking = GamePlayHistory::select(DB::raw('count(*) as total'))
           //  ->where('userId',  $userId)
