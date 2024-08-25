@@ -49,6 +49,18 @@ class ReferControll extends Controller
             'message' => 'Referred Status Updated'
         ]);
     }
+    public function get_referred_stats(Request $request)
+    {
+        $user_id =  $request->user()->id;
+        $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
+        return response()->json([
+            'status' => true,
+            'referred_bonus' => get_setting('referral_coin'),
+            'coins_earned' => $coins_earn,
+            //'activeUsers' => $activeUsers,
+            //'inactiveUsers' => $InactiveMembers,
+        ]);
+    }
     public function get_referred_members(Request $request)
     {
         $user_id =  $request->user()->id;
@@ -72,8 +84,8 @@ class ReferControll extends Controller
 
             return response()->json([
                 'status' => true,
-                'referred_bonus' => get_setting('referral_coin'),
-                'coins_earned' => $coins_earn,
+               // 'referred_bonus' => get_setting('referral_coin'),
+               // 'coins_earned' => $coins_earn,
                 'activeUsers' => $activeUsers,
                 //'inactiveUsers' => $InactiveMembers,
             ]);
@@ -95,8 +107,8 @@ class ReferControll extends Controller
             //   $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
             return response()->json([
                 'status' => true,
-                'referred_bonus' => get_setting('referral_coin'),
-                'coins_earned' => $coins_earn,
+              //  'referred_bonus' => get_setting('referral_coin'),
+              //  'coins_earned' => $coins_earn,
                 // 'activeUsers' => $activeUsers,
                 'inactiveUsers' => $InactiveMembers,
             ]);
