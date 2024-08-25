@@ -90,7 +90,7 @@ class GameZoneManager extends Controller
         $coin = GameZone::whereIn('gameId', $gameIds)->first();
 
         $ranking = GamePlayHistory::select(DB::raw('count(*) as total'))
-          //  ->where('userId',  $userId)
+            //  ->where('userId',  $userId)
             ->groupBy('userId')
             ->orderBy('total', 'desc')
             ->get();
@@ -98,10 +98,14 @@ class GameZoneManager extends Controller
         $userRank = $ranking->search(function ($item) use ($userId) {
             return $item->userId == $userId;
         });
+        $totalTime = GamePlayHistory::where([
+            'userId' => $userId,
+            //  'claimed' => '0',
+        ])->count();
         return response()->json([
             'status' => true,
             'thumbnail' => url('storage/' . $coin->thumbnail),
-            'canClaimCoin' => $playedMinute * $coin->rewardCoins,
+            'canClaimCoin' => $playedMinute * ($coin->rewardCoins * ($totalTime % 10)),
             'ranking' => $userRank + 1,
             'coinPerMinute' => $coin->rewardCoins,
             'message' => 'games successfully retrieves'
