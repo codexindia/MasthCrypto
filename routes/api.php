@@ -55,5 +55,8 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
     });
     Route::prefix('gameZone')->controller('GameZoneManager')->group(function(){
         Route::post('/getGames/{cat}','getGames');
+        Route::post('/gameActivity','gameActivity');
+        Route::post('/checkClaim','checkClaim');
+        Route::post('/claimReward','claimReward');
     });
 });

@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('game_play_histories', function (Blueprint $table) {
             $table->id();
             $table->string('gameId');
+            $table->string('userId');
             $table->string('minutePlayed')->default(1);
-            $table->string('claimed');
+            $table->enum('claimed',[1,0])->default(0);
             $table->timestamps();
         });
     }
