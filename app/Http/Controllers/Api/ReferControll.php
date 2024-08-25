@@ -74,12 +74,12 @@ class ReferControll extends Controller
                     'users.name',
                     'users.phone_number',
                     'users.country_code',
-                    'user.username',
+                    'users.username',
                     DB::raw('MAX(mining_sessions.end_time) as last_active_time')
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
                 ->where('mining_sessions.end_time', '>=', Carbon::now()->subHours(24))
-                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number','user.username', 'users.country_code')
+                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number','users.username', 'users.country_code')
                 ->paginate(10);
             //   $twentyFourHoursAgo = Carbon::now()->subHours(24);
 
@@ -102,7 +102,7 @@ class ReferControll extends Controller
                     DB::raw('MAX(mining_sessions.end_time) as last_active_time')
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
-                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.country_code','user.username')
+                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.country_code','users.username')
                 ->havingRaw('MAX(mining_sessions.end_time) IS NULL OR MAX(mining_sessions.end_time) < ?', [Carbon::now()->subHours(24)])
                 ->paginate(10);
             // return $InactiveMembers;
