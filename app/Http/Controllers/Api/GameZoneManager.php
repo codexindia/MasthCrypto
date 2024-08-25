@@ -18,6 +18,7 @@ class GameZoneManager extends Controller
         $gameData = GameZone::where('category', $request->cat)
             ->select(
                 DB::raw("CONCAT('$url/',thumbnail) AS thumbnail"),
+                'gameId',
                 'gameName',
                 'gameWebLink',
                 'rewardCoins',
