@@ -103,6 +103,7 @@ class GameZoneManager extends Controller
             'thumbnail' => url('storage/' . $coin->thumbnail),
             'canClaimCoin' => $playedMinute * $coin->rewardCoins,
             'ranking' => $userRank + 1,
+            'coinPerMinute' => $coin->rewardCoins,
             'message' => 'games successfully retrieves'
         ]);
 
