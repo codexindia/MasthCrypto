@@ -49,7 +49,7 @@ class GameZoneManager extends Controller
     public function gameActivity(Request $request)
     {
         $request->validate([
-            'gameId' => 'required'
+            'gameId' => 'required|exists:game_zones,gameId'
         ]);
         $gameId = $request->input('gameId');
         $userId = $request->user()->id;
@@ -117,7 +117,7 @@ class GameZoneManager extends Controller
             'claimed' => '0',
         ])->update(['claimed' => '1']);
        // DB::table('users')->where('id', $userId)->increment('coins', $totalCoin);
-       
+
         return response()->json([
             'status' => true,
             'message' => 'Claimed Successfully'
