@@ -70,27 +70,47 @@ class GameZoneManager extends Controller
     public function checkClaim(Request $request)
     {
         $userId = $request->user()->id;
-        $playedMiniute = GamePlayHistory::where([
+        $playedMinute = GamePlayHistory::where([
             'userId' => $userId,
             'claimed' => '0',
         ])->count();
-        // return $playedMiniute;
-        if (!$playedMiniute) {
+
+        if (!$playedMinute) {
             return response()->json([
                 'status' => false,
                 'message' => 'No Claim Available'
             ]);
         }
+
         $gameIds = GamePlayHistory::where([
             'userId' => $userId,
             'claimed' => '0',
         ])->get('gameId');
-        //   return   $gameIds;
+
         $coin = GameZone::whereIn('gameId', $gameIds)->first();
+
+        $ranking = GamePlayHistory::select(DB::raw('count(*) as total'))
+          //  ->where('userId',  $userId)
+            ->groupBy('userId')
+            ->orderBy('total', 'desc')
+            ->get();
+
+        $userRank = $ranking->search(function ($item) use ($userId) {
+            return $item->userId == $userId;
+        });
         return response()->json([
             'status' => true,
-            'thumbnail' => url('storage/'.$coin->thumbnail),
-            'canClaimCoin' => $playedMiniute * $coin->rewardCoins,
+            'thumbnail' => url('storage/' . $coin->thumbnail),
+            'canClaimCoin' => $playedMinute * $coin->rewardCoins,
+            'ranking' => $userRank + 1,
+            'message' => 'games successfully retrieves'
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'thumbnail' => url('storage/' . $coin->thumbnail),
+            'canClaimCoin' => $playedMinute * $coin->rewardCoins,
+            'ranking' => $ranking,
             'message' => 'games successfully retrieves'
         ]);
     }
@@ -117,7 +137,7 @@ class GameZoneManager extends Controller
             'userId' => $userId,
             'claimed' => '0',
         ])->update(['claimed' => '1']);
-       // DB::table('users')->where('id', $userId)->increment('coins', $totalCoin);
+        // DB::table('users')->where('id', $userId)->increment('coins', $totalCoin);
 
         return response()->json([
             'status' => true,
