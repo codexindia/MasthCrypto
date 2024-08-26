@@ -54,13 +54,37 @@ class ReferControll extends Controller
         $user_id =  $request->user()->id;
         $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
         $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', 0)->count();
+        $RoundUpTHeCount = floor($totalUnclamied/5)*5;
         return response()->json([
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
             'coins_earned' => $coins_earn,
-            'totalUnclamied' => $totalUnclamied*5,
+            'totalUnclamied' => $RoundUpTHeCount*1000,
             //'activeUsers' => $activeUsers,
             //'inactiveUsers' => $InactiveMembers,
+        ]);
+    }
+    public function claimReferTask(Request $request)
+    {
+        $user_id =  $request->user()->id;
+       // $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
+        $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', 0)->count(); //26
+        if ($totalUnclamied == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No Unclaimed Bonus'
+            ]);
+        }
+        $RoundUpTHeCount = floor($totalUnclamied/5)*5;
+        ReferData::where('user_id', $user_id)->where('claimed', 0)->limit($RoundUpTHeCount)->
+        increment('coins_earn',1000,[
+            'claimed' => 1,
+            //'coins_earn' => 
+            ]);
+    coin_action($user_id,$RoundUpTHeCount * 1000,null,"Refer Bonus Added") ;
+        return response()->json([
+            'status' => true,
+            'message' => 'Bonus Claimed'
         ]);
     }
     public function get_referred_members(Request $request)

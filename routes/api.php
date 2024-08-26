@@ -30,6 +30,7 @@ Route::middleware(['check_sc','auth:sanctum','CheckBan'])->group(function () {
         Route::post('/claim','claim');
         Route::post('/skip','skip');
         Route::post('/get_referred_stats','get_referred_stats');
+        Route::post('/claimReferTask','claimReferTask');
         Route::post('/get_referred_members/{status}','get_referred_members');
     });
     Route::prefix('env')->controller('GeneralSettings')->group(function(){
