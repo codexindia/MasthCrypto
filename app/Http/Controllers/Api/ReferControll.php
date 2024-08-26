@@ -79,11 +79,11 @@ class ReferControll extends Controller
         }
         $RoundUpTHeCount = floor($totalUnclamied/5)*5;
         ReferData::where('user_id', $user_id)->where('claimed', 0)->limit($RoundUpTHeCount)->
-        increment('coins_earn',1000,[
+        increment('coins_earn',100,[
             'claimed' => 1,
             //'coins_earn' => 
             ]);
-    coin_action($user_id,$RoundUpTHeCount * 1000,null,"Refer Bonus Added") ;
+    coin_action($user_id,$RoundUpTHeCount * 100,null,"Refer Bonus Added") ;
         return response()->json([
             'status' => true,
             'message' => 'Bonus Claimed'
