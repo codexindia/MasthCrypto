@@ -71,7 +71,7 @@ class ReferControll extends Controller
         $user_id =  $request->user()->id;
        // $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
         $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', '0')->count(); //26
-        if ($totalUnclamied == 0) {
+        if ($totalUnclamied < 5) {
             return response()->json([
                 'status' => false,
                 'message' => 'No Unclaimed Bonus'
