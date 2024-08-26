@@ -60,7 +60,7 @@ class ReferControll extends Controller
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
             'coins_earned' => $coins_earn,
-            'totalReferred' =>  $totalUnclamied,
+            'totalReferred' =>  $totalUnclamied->where('claimed', '0')->count(),
             'totalUnclaimed' => $RoundUpTHeCount*100,
             //'activeUsers' => $activeUsers,
             //'inactiveUsers' => $InactiveMembers,
