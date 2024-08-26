@@ -54,13 +54,13 @@ class ReferControll extends Controller
         $user_id =  $request->user()->id;
         $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
         $totalUnclamied = ReferData::where('user_id', $user_id)->count();
-
+        $totalUnclamiedRef = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
         $RoundUpTHeCount = floor($totalUnclamied/5)*5;
         return response()->json([
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
             'coins_earned' => $coins_earn,
-            'totalReferred' =>  $totalUnclamied->where('claimed', '0')->count(),
+            'totalReferred' =>  $totalUnclamiedRef,
             'totalUnclaimed' => $RoundUpTHeCount*100,
             //'activeUsers' => $activeUsers,
             //'inactiveUsers' => $InactiveMembers,
