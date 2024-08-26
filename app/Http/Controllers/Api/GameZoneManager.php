@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GameZone;
 use Illuminate\Support\Facades\DB;
 use App\Models\GamePlayHistory;
+use Ramsey\Uuid\Type\Integer;
 
 use function Laravel\Prompts\select;
 
@@ -102,11 +103,11 @@ class GameZoneManager extends Controller
             'userId' => $userId,
             //  'claimed' => '1',
         ])->count();
-       
+
         return response()->json([
             'status' => true,
             'thumbnail' => url('storage/' . $coin->thumbnail),
-            'canClaimCoin' =>($coin->rewardCoins * (floor($totalTime /10)+1)),
+            'canClaimCoin' => ($coin->rewardCoins * (floor($totalTime / 10) + 1)),
             'ranking' => $userRank + 1,
             'coinPerMinute' => $coin->rewardCoins,
             'message' => 'games successfully retrieves'
@@ -122,6 +123,7 @@ class GameZoneManager extends Controller
     }
     public function claimReward(Request $request)
     {
+        
         $userId = $request->user()->id;
         $playedMiniute = GamePlayHistory::where([
             'userId' => $userId,
@@ -138,7 +140,11 @@ class GameZoneManager extends Controller
             'claimed' => '0',
         ])->get('gameId');
         $coin = GameZone::whereIn('gameId', $gameIds)->first();
-        $totalCoin = $playedMiniute * $coin->rewardCoins;
+        $totalTime = GamePlayHistory::where([
+            'userId' => $userId,
+            //  'claimed' => '1',
+        ])->count();
+        $totalCoin = ($coin->rewardCoins * (floor($totalTime / 10) + 1));
         DB::table('game_play_histories')->where([
             'userId' => $userId,
             'claimed' => '0',

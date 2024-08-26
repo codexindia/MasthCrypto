@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('referred_to');
             $table->string('coins_earn');
+            $table->string('claimed')->default('0');
             $table->timestamps();
         });
     }
