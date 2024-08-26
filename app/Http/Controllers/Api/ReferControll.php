@@ -79,7 +79,7 @@ class ReferControll extends Controller
         }
       //  $totalClamied = ReferData::where('user_id', $user_id)->where('claimed', '1')->count();
         $RoundUpTHeCount = floor($totalUnclamied/5)*5;
-      return  ReferData::where('user_id', $user_id)->where('claimed','0')->limit($RoundUpTHeCount)->
+        ReferData::where('user_id', $user_id)->where('claimed','0')->limit($RoundUpTHeCount)->
         increment('coins_earn',100);
         ReferData::where('user_id', $user_id)->limit($RoundUpTHeCount)->
         update([
