@@ -83,7 +83,7 @@ class ReferControll extends Controller
             'claimed' => 1,
             //'coins_earn' => 
             ]);
-    coin_action($user_id,$RoundUpTHeCount * 100,null,"Refer Bonus Added") ;
+    coin_action($user_id,$RoundUpTHeCount * 100,'credit',"Refer Bonus Added") ;
         return response()->json([
             'status' => true,
             'message' => 'Bonus Claimed'
