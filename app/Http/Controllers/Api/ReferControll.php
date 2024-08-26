@@ -53,7 +53,7 @@ class ReferControll extends Controller
     {
         $user_id =  $request->user()->id;
         $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
-        $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', 0)->count();
+        $totalUnclamied = ReferData::where('user_id', $user_id)->count();
 
         $RoundUpTHeCount = floor($totalUnclamied/5)*5;
         return response()->json([
@@ -70,15 +70,16 @@ class ReferControll extends Controller
     {
         $user_id =  $request->user()->id;
        // $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
-        $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', 0)->count(); //26
+        $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', '0')->count(); //26
         if ($totalUnclamied == 0) {
             return response()->json([
                 'status' => false,
                 'message' => 'No Unclaimed Bonus'
             ]);
         }
+        $totalClamied = ReferData::where('user_id', $user_id)->where('claimed', '1')->count();
         $RoundUpTHeCount = floor($totalUnclamied/5)*5;
-        ReferData::where('user_id', $user_id)->where('claimed', 0)->limit($RoundUpTHeCount)->
+        ReferData::where('user_id', $user_id)->limit($RoundUpTHeCount+$totalClamied)->
         increment('coins_earn',100,[
             'claimed' => 1,
             //'coins_earn' => 
