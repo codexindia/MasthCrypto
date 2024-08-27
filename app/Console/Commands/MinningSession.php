@@ -43,7 +43,7 @@ class MinningSession extends Command
                     $update->status = 'closed';
                     $update->save();
                     try {
-                     //   sendpush($item->user, 'Hey There ! Your Mining Session Has Ended 😨 Come Back And Start Mining Again 💰💸');
+                      sendpush($item->user, 'Hey There ! Your Mining Session Has Ended 😨 Come Back And Start Mining Again 💰💸');
                     } catch (\Throwable $th) {
                        // throw new \Exception($th->getMessage());
                     }
