@@ -61,7 +61,7 @@ class MinningSession extends Command
                     coin_action($item->user_id, $item->coin, 'credit', "Coins Added For Mining Session " . $item->session_id, ['session_id' => $item->session_id]);
                 }, 5);
             }
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
            echo $th->getMessage();
         }
         echo "success";
