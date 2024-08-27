@@ -53,15 +53,16 @@ class ReferControll extends Controller
     {
         $user_id =  $request->user()->id;
         $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
-        $totalUnclamied = ReferData::where('user_id', $user_id)->count();
-        $totalUnclamiedRef = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
-        $RoundUpTHeCount = floor($totalUnclamied/5)*5;
+        $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
+       // $totalUnclamiedRef = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
+        $RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
         return response()->json([
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
             'coins_earned' => $coins_earn,
-            'totalReferred' =>  $totalUnclamiedRef,
-            'totalUnclaimed' => $RoundUpTHeCount*100,
+            'totalReferred' =>  $totalUnclamied,
+            'totalUnclaimed' => $RoundUpTHeCount * 100,
+            'test' =>  $RoundUpTHeCount,
             //'activeUsers' => $activeUsers,
             //'inactiveUsers' => $InactiveMembers,
         ]);
@@ -69,7 +70,7 @@ class ReferControll extends Controller
     public function claimReferTask(Request $request)
     {
         $user_id =  $request->user()->id;
-       // $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
+        // $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
         $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', '0')->count(); //26
         if ($totalUnclamied < 5) {
             return response()->json([
@@ -77,17 +78,15 @@ class ReferControll extends Controller
                 'message' => 'No Unclaimed Bonus'
             ]);
         }
-      //  $totalClamied = ReferData::where('user_id', $user_id)->where('claimed', '1')->count();
-        $RoundUpTHeCount = floor($totalUnclamied/5)*5;
-        ReferData::where('user_id', $user_id)->where('claimed','0')->limit($RoundUpTHeCount)->
-        increment('coins_earn',100);
-        ReferData::where('user_id', $user_id)->limit($RoundUpTHeCount)->
-        update([
-            'claimed' => 1,
-            //'coins_earn' => 
+        //  $totalClamied = ReferData::where('user_id', $user_id)->where('claimed', '1')->count();
+        $RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
+        ReferData::where('user_id', $user_id)->where('claimed', '0')->limit($RoundUpTHeCount)->increment('coins_earn', 100);
+        ReferData::where('user_id', $user_id)->limit($RoundUpTHeCount)->update([
+                'claimed' => 1,
+                //'coins_earn' => 
             ]);
-         
-    coin_action($user_id,$RoundUpTHeCount * 100,'credit',"Refer Bonus Added") ;
+
+        coin_action($user_id, $RoundUpTHeCount * 100, 'credit', "Refer Bonus Added");
         return response()->json([
             'status' => true,
             'message' => 'Bonus Claimed'
@@ -111,7 +110,7 @@ class ReferControll extends Controller
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
                 ->where('mining_sessions.end_time', '>=', Carbon::now()->subHours(24))
-                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number','users.username', 'users.country_code')
+                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.username', 'users.country_code')
                 ->paginate(10);
             //   $twentyFourHoursAgo = Carbon::now()->subHours(24);
 
@@ -134,7 +133,7 @@ class ReferControll extends Controller
                     DB::raw('MAX(mining_sessions.end_time) as last_active_time')
                 )
                 ->where('users.referred_by', $request->user()->refer_code) // Replace with your referral code
-                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.country_code','users.username')
+                ->groupBy('users.id', 'users.profile_pic', 'users.name', 'users.phone_number', 'users.country_code', 'users.username')
                 ->havingRaw('MAX(mining_sessions.end_time) IS NULL OR MAX(mining_sessions.end_time) < ?', [Carbon::now()->subHours(24)])
                 ->paginate(10);
             // return $InactiveMembers;
