@@ -52,10 +52,13 @@ class MinningSession extends Command
                     if ($item->user->referred_by != null && $item->user->referred_by != "skiped") {
                         $ref_user = User::where('refer_code', $item->user->referred_by)->first();
                         coin_action($ref_user->id, $refer_coin, 'credit', "Commission Received From Your Referral User " . $item->user->name);
-                        ReferData::where([
+                        $incre = ReferData::where([
                             'user_id' => $ref_user->id,
                             'referred_to' => $item->user->id,
-                        ])->increment('coins_earn', $refer_coin);
+                        ]);
+                        if($incre != null){
+                        $incre->increment('coins_earn', $refer_coin);
+                        }
                     }
                     //end refer
                     coin_action($item->user_id, $item->coin, 'credit', "Coins Added For Mining Session " . $item->session_id, ['session_id' => $item->session_id]);
