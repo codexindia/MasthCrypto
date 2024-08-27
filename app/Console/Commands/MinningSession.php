@@ -62,7 +62,7 @@ class MinningSession extends Command
                 }, 5);
             }
         } catch (\Throwable $th) {
-            throw new \Exception($th->getMessage());
+           echo $th->getMessage();
         }
         echo "success";
     }
