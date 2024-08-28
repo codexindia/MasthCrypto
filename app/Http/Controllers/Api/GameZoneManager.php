@@ -144,7 +144,12 @@ class GameZoneManager extends Controller
             'userId' => $userId,
             //  'claimed' => '1',
         ])->count();
-        $totalCoin = ($coin->rewardCoins * (floor($totalTime / 10) + 1));
+        $level = floor($totalTime / 10) + 1;
+        if ($level > 10) {
+            $level = 10;
+        }
+        $totalCoin = ($coin->rewardCoins * $level);
+        coin_action($userId,  $totalCoin, 'credit', "GamePlay Reward Added");
         DB::table('game_play_histories')->where([
             'userId' => $userId,
             'claimed' => '0',
