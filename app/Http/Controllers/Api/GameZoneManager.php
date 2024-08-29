@@ -103,11 +103,14 @@ class GameZoneManager extends Controller
             'userId' => $userId,
             //  'claimed' => '1',
         ])->count();
-
+        $level = floor($totalTime / 10) + 1;
+        if ($level > 10) {
+            $level = 10;
+        }
         return response()->json([
             'status' => true,
             'thumbnail' => url('storage/' . $coin->thumbnail),
-            'canClaimCoin' => ($coin->rewardCoins * (floor($totalTime / 10) + 1)),
+            'canClaimCoin' => ($coin->rewardCoins * $level),
             'ranking' => $userRank + 1,
             'coinPerMinute' => $coin->rewardCoins,
             'message' => 'games successfully retrieves'
