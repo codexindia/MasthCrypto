@@ -55,14 +55,14 @@ class ReferControll extends Controller
         $coins_earn = ReferData::where('user_id', $user_id)->sum('coins_earn');
         $totalUnclamied = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
        // $totalUnclamiedRef = ReferData::where('user_id', $user_id)->where('claimed', '0')->count();
-        $RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
+      //  $RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
         return response()->json([
             'status' => true,
             'referred_bonus' => get_setting('referral_coin'),
             'coins_earned' => $coins_earn,
             'totalReferred' =>  $totalUnclamied,
-            'totalUnclaimed' => $RoundUpTHeCount * 100,
-            'test' =>  $RoundUpTHeCount,
+            'totalUnclaimed' => $totalUnclamied * 100,
+         //   'test' =>  $RoundUpTHeCount,
             //'activeUsers' => $activeUsers,
             //'inactiveUsers' => $InactiveMembers,
         ]);
@@ -79,14 +79,14 @@ class ReferControll extends Controller
             ]);
         }
         //  $totalClamied = ReferData::where('user_id', $user_id)->where('claimed', '1')->count();
-        $RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
-        ReferData::where('user_id', $user_id)->where('claimed', '0')->limit($RoundUpTHeCount)->increment('coins_earn', 100);
-        ReferData::where('user_id', $user_id)->limit($RoundUpTHeCount)->update([
+        //$RoundUpTHeCount = floor($totalUnclamied / 5) * 5;
+        ReferData::where('user_id', $user_id)->where('claimed', '0')->increment('coins_earn', 100);
+        ReferData::where('user_id', $user_id)->where('claimed', '0')->update([
                 'claimed' => 1,
                 //'coins_earn' => 
             ]);
 
-        coin_action($user_id, $RoundUpTHeCount * 100, 'credit', "Refer Bonus Added");
+        coin_action($user_id, $totalUnclamied * 100, 'credit', "Refer Bonus Added");
         return response()->json([
             'status' => true,
             'message' => 'Bonus Claimed'
